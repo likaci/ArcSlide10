@@ -12,17 +12,15 @@ import android.location.LocationListener;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.FragmentTransaction;
+import android.text.Layout;
 import android.text.method.Touch;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ToggleButton;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.*;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -251,17 +249,72 @@ public class ActivityMain extends SherlockFragmentActivity{
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-
+        /*
         menu.add("Search")
                 .setIcon(R.drawable.abs__ic_search)
                 .setActionView(R.layout.collapsible_edittext)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
-        return true;
-        /*
-		getSupportMenuInflater().inflate(R.menu.activity_main, menu);
-        SearchView searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
-		return super.onCreateOptionsMenu(menu);
-		*/
+                */
+        getSupportMenuInflater().inflate(R.menu.activity_main, menu);
+
+        SearchView searchView = new SearchView(getSupportActionBar().getThemedContext());
+        searchView.setQueryHint("输入地名");
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                LocatorFindParameters findParams = new LocatorFindParameters(query);
+                findParams.setMaxLocations(10);
+                findParams.setOutSR(mMapView.getSpatialReference());
+                List<LocatorGeocodeResult> results = null;
+
+                SearchTask searchTask = new SearchTask(mLocator,mMapView);
+                try {
+                    results = mLocator.find(findParams);
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+
+                if(results == null || results.size() == 0){
+                    popToast("", true);
+                } else {
+                    LocatorGeocodeResult result = results.get(0);
+                    // Get the returned geometry, create a Graphic from it, and add to GraphicsLayer
+                    Point resultLocGeom = result.getLocation();
+                    SimpleMarkerSymbol resultSymbol = new SimpleMarkerSymbol(Color.BLUE, 23, STYLE.CIRCLE);
+                    Graphic resultLocation = new Graphic(resultLocGeom, resultSymbol);
+                    mGraphicsLayer.addGraphic(resultLocation);
+
+                    // Create a text symbol for return address with a slight offset
+                    TextSymbol resultAddress = new TextSymbol(16, result.getAddress(), Color.BLACK);
+                    resultAddress.setOffsetX(-2);
+                    resultAddress.setOffsetY(1);
+
+                    // Create a graphic object for address text, and add to GraphicsLayer
+                    //Graphic resultText = new Graphic(resultLocGeom, resultAddress);
+                    //mGraphicsLayer.addGraphic(resultText);
+
+                    // Zoom to the Geocoding result
+                    mMapView.zoomTo(resultLocGeom, 10);
+                    showCallout(result.getAddress(),resultLocGeom);
+                }
+
+                ((InputMethodManager)getSystemService(INPUT_METHOD_SERVICE))
+                        .hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
+        MenuItem menuItemSearch = menu.findItem(R.id.menu_search);
+        menuItemSearch.setActionView(searchView);
+        return super.onCreateOptionsMenu(menu);
 	}
 
 	//start 地图事件

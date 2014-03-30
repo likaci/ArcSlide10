@@ -27,7 +27,7 @@ public class FragmentMenu extends Fragment implements View.OnClickListener, Radi
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         View contextView = inflater.inflate(R.layout.menu, container, false);
-        LinearLayout layout = (LinearLayout) contextView .findViewById(R.id.listMenu_layout);
+        LinearLayout layout = (LinearLayout) contextView.findViewById(R.id.listMenu_layout);
         for (int i = 0; i < layout.getChildCount(); i++)
             layout.getChildAt(i).setOnClickListener(this);
         ((RadioGroup)contextView.findViewById(R.id.rgMeasure)).setOnCheckedChangeListener(this);
