@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    tools:context=".ActivityMain" xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <FrameLayout
+            android:id="@+id/fragment_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+    </FrameLayout>
+
+    //map
+    <com.esri.android.map.MapView
+        android:id="@+id/map"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/topbar" >
+    </com.esri.android.map.MapView>
+
+    <!--
+    //top
+    <RelativeLayout
+            android:id="@+id/topbar"
+            android:layout_width="fill_parent"
+            android:gravity="center_vertical"
+            android:layout_height="45dp"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/topbarbg"
+            android:padding="5dp"
+            >
+        <EditText
+                android:id="@+id/txtSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:text="滨利路" />
+        <Button
+                android:id="@+id/btnSearch"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:background="@android:drawable/ic_menu_search"
+                />
+    </RelativeLayout>
+
+    //tool
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/toolbarbg"
+ >
+
+        <ToggleButton
+                android:id="@+id/btnLocation"
+                android:textOn="定位开"
+                android:textOff="定位关"
+                android:gravity="center_horizontal"
+                android:layout_alignParentLeft="true"
+                android:layout_width="80dip"
+                android:layout_height="wrap_content"
+                />
+        <Button
+                android:id="@+id/btnTest"
+                android:text="测试"
+                android:gravity="center_horizontal"
+                android:layout_toRightOf="@id/btnLocation"
+                android:layout_width="80dip"
+                android:layout_height="wrap_content"
+                />
+        <Button
+                android:id="@+id/btnTest2"
+                android:text="测试"
+                android:gravity="center_horizontal"
+                android:layout_toRightOf="@id/btnTest"
+                android:layout_width="80dip"
+                android:layout_height="wrap_content"
+                />
+        <ToggleButton
+                android:id="@+id/btnMeasure"
+                android:textOn="测量开"
+                android:textOff="测量关"
+                android:gravity="center_horizontal"
+                android:layout_toRightOf="@id/btnTest2"
+                android:layout_width="80dip"
+                android:layout_height="wrap_content"
+                />
+    </RelativeLayout>
+    -->
+
+</RelativeLayout>
+
