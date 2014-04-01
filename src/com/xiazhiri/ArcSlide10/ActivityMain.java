@@ -1,10 +1,6 @@
  package com.xiazhiri.ArcSlide10;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import android.app.ProgressDialog;
+ import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.location.Location;
@@ -12,52 +8,36 @@ import android.location.LocationListener;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.FragmentTransaction;
-import android.text.Layout;
-import android.text.method.Touch;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.*;
-
-import com.actionbarsherlock.app.SherlockActivity;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.widget.SearchView;
-import com.esri.android.map.Callout;
-import com.esri.android.map.GraphicsLayer;
+import com.esri.android.map.*;
 import com.esri.android.map.GraphicsLayer.RenderingMode;
-import com.esri.android.map.LocationDisplayManager;
-import com.esri.android.map.MapOnTouchListener;
-import com.esri.android.map.MapView;
-import com.esri.android.map.TiledLayer;
 import com.esri.android.map.ags.ArcGISLocalTiledLayer;
-import com.esri.core.geometry.Geometry;
 import com.esri.core.geometry.GeometryEngine;
 import com.esri.core.geometry.Line;
 import com.esri.core.geometry.Point;
-import com.esri.core.geometry.Polygon;
 import com.esri.core.geometry.SpatialReference;
 import com.esri.core.map.Graphic;
-import com.esri.core.symbol.SimpleLineSymbol;
 import com.esri.core.symbol.SimpleMarkerSymbol;
 import com.esri.core.symbol.SimpleMarkerSymbol.STYLE;
 import com.esri.core.symbol.TextSymbol;
 import com.esri.core.tasks.geocode.Locator;
 import com.esri.core.tasks.geocode.LocatorFindParameters;
 import com.esri.core.tasks.geocode.LocatorGeocodeResult;
-import com.esri.core.tasks.geocode.LocatorReverseGeocodeResult;
 import com.esri.core.tasks.na.NAFeaturesAsFeature;
-import com.esri.core.tasks.na.Route;
-import com.esri.core.tasks.na.RouteDirection;
-import com.esri.core.tasks.na.RouteParameters;
-import com.esri.core.tasks.na.RouteResult;
 import com.esri.core.tasks.na.RouteTask;
-import com.esri.core.tasks.na.StopGraphic;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+
+import java.util.List;
 
 public class ActivityMain extends SherlockFragmentActivity{
 
@@ -88,19 +68,19 @@ public class ActivityMain extends SherlockFragmentActivity{
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		mMapView = (MapView)findViewById(R.id.map);
 
+		mMapView = (MapView)findViewById(R.id.map);
 		tiledLayer = new ArcGISLocalTiledLayer(extern + tpkPath);
 		//mMapView.addLayer(new ArcGISTiledMapServiceLayer("http://cache1.arcgisonline.cn/ArcGIS/rest/services/ChinaOnlineStreetColor/MapServer"));
 		mMapView.addLayer(tiledLayer);
 		mMapView.addLayer(mGraphicsLayer);
 
-		//FragmentMap fragmentMap = new FragmentMap();
-		//fragmentMap.setArguments(getIntent().getExtras());
-		//getSupportFragmentManager().beginTransaction().add(R.id.content_in_mainActivity,fragmentMap).commit();
-		//fragmentMap.mapView.addLayer(new ArcGISTiledMapServiceLayer("http://cache1.arcgisonline.cn/ArcGIS/rest/services/ChinaOnlineStreetColor/MapServer"));
+        FragmentMap fragmentMap = new FragmentMap();
+		fragmentMap.setArguments(getIntent().getExtras());
+		getSupportFragmentManager().beginTransaction().add(R.id.fragment_content,fragmentMap).commit();
+//		fragmentMap.mapView.addLayer(new ArcGISTiledMapServiceLayer("http://cache1.arcgisonline.cn/ArcGIS/rest/services/ChinaOnlineStreetColor/MapServer"));
 
-
+        //region init menu
         SlidingMenu menu = new SlidingMenu(this);
         menu.setMode(SlidingMenu.LEFT);
         menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
@@ -110,10 +90,13 @@ public class ActivityMain extends SherlockFragmentActivity{
         menu.setFadeDegree(0.35f);
         menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
         menu.setMenu(R.layout.frame_menu);
+        //endregion
 
+        //region set slide menu
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         FragmentMenu fragmentMenu = new FragmentMenu();
         fragmentTransaction.replace(R.id.fragment_menu,fragmentMenu).commit();
+        //endregion
 
 		getSupportActionBar().setHomeButtonEnabled(true);
 
@@ -125,7 +108,6 @@ public class ActivityMain extends SherlockFragmentActivity{
 
         touchListener = new TouchListener(ActivityMain.this,this,mMapView);
 		mMapView.setOnTouchListener(touchListener);
-
 	}
 
 	private void initializeRoutingAndGeocoding() {
@@ -141,7 +123,6 @@ public class ActivityMain extends SherlockFragmentActivity{
 			}
 		}).start();
 	}
-
 
     /*
     OnClickListener onclick = new OnClickListener(){

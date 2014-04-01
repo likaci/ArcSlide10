@@ -1,7 +1,6 @@
 package com.xiazhiri.ArcSlide10;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.util.Log;
 import android.view.MotionEvent;
 import com.esri.android.map.MapOnTouchListener;
@@ -9,9 +8,8 @@ import com.esri.android.map.MapView;
 import com.esri.core.geometry.Point;
 import com.esri.core.geometry.SpatialReference;
 import com.esri.core.map.Graphic;
-import com.esri.core.symbol.SimpleMarkerSymbol;
+import com.esri.core.symbol.PictureMarkerSymbol;
 import com.esri.core.tasks.geocode.LocatorReverseGeocodeResult;
-import com.esri.core.tasks.na.StopGraphic;
 
 import java.util.Map;
 
@@ -36,7 +34,7 @@ public class TouchListener extends MapOnTouchListener {
 			}
 			Point mapPoint = mMapView.toMapPoint(point.getX(), point.getY());
             activityMain.mGraphicsLayer.removeAll();
-			Graphic graphic = new Graphic(mapPoint, new SimpleMarkerSymbol(Color.BLUE, 10, SimpleMarkerSymbol.STYLE.DIAMOND));
+			Graphic graphic = new Graphic(mapPoint, new PictureMarkerSymbol(activityMain.getResources().getDrawable(R.drawable.icon_openmap_mark)));
 			activityMain.mGraphicsLayer.addGraphic(graphic);
 			String stopAddress = "";
 			try {

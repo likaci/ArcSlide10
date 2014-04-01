@@ -5,7 +5,7 @@
       <GradleProjectSettings>
         <option name="createEmptyContentRootDirectories" value="true" />
         <option name="distributionType" value="WRAPPED" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/../ABS" />
+        <option name="externalProjectPath" value="D:\Dev\Android" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/../ABS" />

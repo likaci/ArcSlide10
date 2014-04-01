@@ -33,19 +33,10 @@
                      android:layout_height="40dp"
                      android:gravity="center_vertical"
                 />
-
         <RadioButton android:text="多边形面积"
                      android:textSize="20dp"
                      android:textColor="#ffbbbcbd"
                      android:id="@+id/rbPolygon"
-                     android:layout_width="fill_parent"
-                     android:layout_height="40dp"
-                     android:gravity="center_vertical"
-                />
-        <RadioButton android:text="圆形面积"
-                     android:textSize="20dp"
-                     android:textColor="#ffbbbcbd"
-                     android:id="@+id/rbRound"
                      android:layout_width="fill_parent"
                      android:layout_height="40dp"
                      android:gravity="center_vertical"

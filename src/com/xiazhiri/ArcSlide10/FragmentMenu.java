@@ -64,10 +64,10 @@ public class FragmentMenu extends Fragment implements View.OnClickListener, Radi
     public void onCheckedChanged(RadioGroup radioGroup, int i) {
         switch (i){
             case R.id.rbLongth:
-                mActivityMain.measure = new Measure(mActivityMain.mMapView,mActivityMain.mGraphicsLayer,1);
+                mActivityMain.measure = new Measure(mActivityMain,mActivityMain.mGraphicsLayer,1);
                 break;
             case R.id.rbPolygon:
-                mActivityMain.measure = new Measure(mActivityMain.mMapView,mActivityMain.mGraphicsLayer,2);
+                mActivityMain.measure = new Measure(mActivityMain,mActivityMain.mGraphicsLayer,2);
             default:
                 break;
         }
