@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../ActionBarSherlock/ActionBarSherlock.iml" filepath="$PROJECT_DIR$/../ActionBarSherlock/ActionBarSherlock.iml" />
       <module fileurl="file://$PROJECT_DIR$/../Android.iml" filepath="$PROJECT_DIR$/../Android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Android.iml" filepath="$PROJECT_DIR$/../Android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../ApiDemos/ApiDemos.iml" filepath="$PROJECT_DIR$/../ApiDemos/ApiDemos.iml" />
       <module fileurl="file://$PROJECT_DIR$/ArcSlide10.iml" filepath="$PROJECT_DIR$/ArcSlide10.iml" />
       <module fileurl="file://$PROJECT_DIR$/../SlidingMenuLibrary/SlidingMenuLibrary.iml" filepath="$PROJECT_DIR$/../SlidingMenuLibrary/SlidingMenuLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/../ABSexample/demos/demos.iml" filepath="$PROJECT_DIR$/../ABSexample/demos/demos.iml" />

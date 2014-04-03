@@ -7,17 +7,11 @@ import com.esri.android.map.MapOnTouchListener;
 import com.esri.android.map.MapView;
 import com.esri.core.geometry.Point;
 import com.esri.core.geometry.SpatialReference;
-import com.esri.core.map.Graphic;
-import com.esri.core.symbol.PictureMarkerSymbol;
 import com.esri.core.tasks.geocode.LocatorReverseGeocodeResult;
 
 import java.util.Map;
 
-/**
- * Created by Administrator on 2014/3/29.
- */
 public class TouchListener extends MapOnTouchListener {
-		private int routeHandle = -1;
         MapView mMapView;
         ActivityMain activityMain;
         String touchMode = "Normal";
@@ -34,8 +28,8 @@ public class TouchListener extends MapOnTouchListener {
 			}
 			Point mapPoint = mMapView.toMapPoint(point.getX(), point.getY());
             activityMain.mGraphicsLayer.removeAll();
-			Graphic graphic = new Graphic(mapPoint, new PictureMarkerSymbol(activityMain.getResources().getDrawable(R.drawable.icon_openmap_mark)));
-			activityMain.mGraphicsLayer.addGraphic(graphic);
+			//Graphic graphic = new Graphic(mapPoint, new PictureMarkerSymbol(activityMain.getResources().getDrawable(R.drawable.icon_openmap_mark)));
+			//activityMain.mGraphicsLayer.addGraphic(graphic);
 			String stopAddress = "";
 			try {
 				SpatialReference mapRef = mMapView.getSpatialReference();
@@ -70,7 +64,6 @@ public class TouchListener extends MapOnTouchListener {
 
 		@Override
 		public boolean onDoubleTap(MotionEvent point) {
-
            /*
 			// Return default behavior if we did not initialize properly.
 			if (mRouteTask == null) {
