@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -31,13 +30,9 @@ import com.esri.android.map.MapView;
 import com.esri.android.map.TiledLayer;
 import com.esri.android.map.ags.ArcGISLocalTiledLayer;
 import com.esri.core.geometry.Point;
-import com.esri.core.map.Graphic;
-import com.esri.core.symbol.SimpleMarkerSymbol;
-import com.esri.core.symbol.SimpleMarkerSymbol.STYLE;
-import com.esri.core.symbol.TextSymbol;
 import com.esri.core.tasks.geocode.Locator;
 import com.esri.core.tasks.geocode.LocatorFindParameters;
-import com.esri.core.tasks.geocode.LocatorGeocodeResult;
+import com.esri.core.tasks.na.StopGraphic;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 import java.io.*;
@@ -46,7 +41,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class ActivityMain extends SherlockFragmentActivity{
@@ -68,6 +62,7 @@ public class ActivityMain extends SherlockFragmentActivity{
 
     Measure measure = null;
     TouchListener touchListener;
+    SearchTask searchTask;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -122,42 +117,11 @@ public class ActivityMain extends SherlockFragmentActivity{
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+
                 LocatorFindParameters findParams = new LocatorFindParameters(query);
                 findParams.setMaxLocations(10);
                 findParams.setOutSR(mMapView.getSpatialReference());
-                List<LocatorGeocodeResult> results = null;
-                SearchTask searchTask = new SearchTask(mLocator,mMapView);
-                try {
-                    results = mLocator.find(findParams);
-                }
-                catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
-                if(results == null || results.size() == 0){
-                    popToast("", true);
-                } else {
-                    LocatorGeocodeResult result = results.get(0);
-                    // Get the returned geometry, create a Graphic from it, and add to GraphicsLayer
-                    Point resultLocGeom = result.getLocation();
-                    SimpleMarkerSymbol resultSymbol = new SimpleMarkerSymbol(Color.BLUE, 23, STYLE.CIRCLE);
-                    Graphic resultLocation = new Graphic(resultLocGeom, resultSymbol);
-                    mGraphicsLayer.addGraphic(resultLocation);
-
-                    // Create a text symbol for return address with a slight offset
-                    TextSymbol resultAddress = new TextSymbol(16, result.getAddress(), Color.BLACK);
-                    resultAddress.setOffsetX(-2);
-                    resultAddress.setOffsetY(1);
-
-                    // Create a graphic object for address text, and add to GraphicsLayer
-                    //Graphic resultText = new Graphic(resultLocGeom, resultAddress);
-                    //mGraphicsLayer.addGraphic(resultText);
-
-                    // Zoom to the Geocoding result
-                    mMapView.zoomTo(resultLocGeom, 10);
-                    showCallout(result.getAddress(),resultLocGeom);
-                }
-
+                searchTask.Search(findParams);
                 ((InputMethodManager)getSystemService(INPUT_METHOD_SERVICE))
                         .hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
                 return false;
@@ -244,7 +208,6 @@ public class ActivityMain extends SherlockFragmentActivity{
 
         return super.onCreateOptionsMenu(menu);
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -414,7 +377,6 @@ public class ActivityMain extends SherlockFragmentActivity{
 
     public void showCallout(String text, Point location) {
 
-        // If the callout has never been created, inflate it
         if (mCallout == null) {
             LayoutInflater inflater = (LayoutInflater) getApplication().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             mCallout = inflater.inflate(R.layout.callout, null);
@@ -422,11 +384,10 @@ public class ActivityMain extends SherlockFragmentActivity{
 
         // Show the callout with the given text at the given location
         ((TextView) mCallout.findViewById(R.id.calloutText)).setText(text);
-        ((Button)mCallout.findViewById(R.id.btnAddStopPoint)).setOnClickListener(new OnClickListener() {
+        ((Button)mCallout.findViewById(R.id.btnAddStop)).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(ActivityMain.this,"hello",Toast.LENGTH_SHORT).show();
-                routingTask.AddPoint(touchListener.currentStopGraphic);
+                routingTask.AddPoint(new StopGraphic(mMapView.getCallout().getCoordinates()));
             }
         });
         mMapView.getCallout().show(location, mCallout);
@@ -447,9 +408,10 @@ public class ActivityMain extends SherlockFragmentActivity{
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    mLocator = Locator.createLocalLocator(extern + locatorPath);
+                    searchTask = new SearchTask(ActivityMain.this, extern + locatorPath);
+                    //mLocator = Locator.createLocalLocator(extern + locatorPath);
                     //mRouteTask = RouteTask.createLocalRouteTask(extern + networkPath, networkName);
-                    //routingTask = new RoutingTask(ActivityMain.this,networkPath,networkName);
+                    routingTask = new RoutingTask(ActivityMain.this,extern + networkPath,networkName);
                 } catch (Exception e) {
                     popToast("加载离线数据失败" + e.getMessage(), true);
                     e.printStackTrace();

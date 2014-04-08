@@ -39,7 +39,7 @@ public class FragmentMenu extends Fragment implements View.OnClickListener, Radi
         ((Button)contextView.findViewById(R.id.btnCalcRoute)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mActivityMain.routingTask.execute(new Object[]{});
+                mActivityMain.routingTask.FindRoute();
             }
         });
 
