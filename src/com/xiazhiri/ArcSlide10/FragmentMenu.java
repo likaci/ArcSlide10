@@ -21,6 +21,9 @@ public class FragmentMenu extends Fragment implements View.OnClickListener, Radi
         setRetainInstance(true);
         mActivityMain = (ActivityMain)getActivity();
         mFrameLayout = (FrameLayout)mActivityMain.findViewById(R.id.fragment_content);
+
+
+
     }
 
     @Override
@@ -32,6 +35,14 @@ public class FragmentMenu extends Fragment implements View.OnClickListener, Radi
             layout.getChildAt(i).setOnClickListener(this);
         ((RadioGroup)contextView.findViewById(R.id.rgMeasure)).setOnCheckedChangeListener(this);
         this.contextView = contextView;
+
+        ((Button)contextView.findViewById(R.id.btnCalcRoute)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mActivityMain.routingTask.execute(new Object[]{});
+            }
+        });
+
         return contextView;
     }
 

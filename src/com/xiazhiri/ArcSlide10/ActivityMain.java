@@ -38,7 +38,6 @@ import com.esri.core.symbol.TextSymbol;
 import com.esri.core.tasks.geocode.Locator;
 import com.esri.core.tasks.geocode.LocatorFindParameters;
 import com.esri.core.tasks.geocode.LocatorGeocodeResult;
-import com.esri.core.tasks.na.RouteTask;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 import java.io.*;
@@ -55,7 +54,8 @@ public class ActivityMain extends SherlockFragmentActivity{
     MapView mMapView;
     public LocationDisplayManager ldm;
     TiledLayer tiledLayer;
-    RouteTask mRouteTask = null;
+    //RouteTask mRouteTask = null;
+    RoutingTask routingTask;
     Locator mLocator = null;
     GraphicsLayer mGraphicsLayer = new GraphicsLayer(RenderingMode.DYNAMIC);
     View mCallout = null;
@@ -111,6 +111,7 @@ public class ActivityMain extends SherlockFragmentActivity{
 
         touchListener = new TouchListener(ActivityMain.this,this,mMapView);
         mMapView.setOnTouchListener(touchListener);
+
     }
 
     @Override
@@ -421,10 +422,11 @@ public class ActivityMain extends SherlockFragmentActivity{
 
         // Show the callout with the given text at the given location
         ((TextView) mCallout.findViewById(R.id.calloutText)).setText(text);
-        ((Button)mCallout.findViewById(R.id.btnHello)).setOnClickListener(new OnClickListener() {
+        ((Button)mCallout.findViewById(R.id.btnAddStopPoint)).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(ActivityMain.this,"hello",Toast.LENGTH_SHORT).show();
+                routingTask.AddPoint(touchListener.currentStopGraphic);
             }
         });
         mMapView.getCallout().show(location, mCallout);
@@ -446,7 +448,8 @@ public class ActivityMain extends SherlockFragmentActivity{
             public void run() {
                 try {
                     mLocator = Locator.createLocalLocator(extern + locatorPath);
-                    mRouteTask = RouteTask.createLocalRouteTask(extern + networkPath, networkName);
+                    //mRouteTask = RouteTask.createLocalRouteTask(extern + networkPath, networkName);
+                    //routingTask = new RoutingTask(ActivityMain.this,networkPath,networkName);
                 } catch (Exception e) {
                     popToast("加载离线数据失败" + e.getMessage(), true);
                     e.printStackTrace();

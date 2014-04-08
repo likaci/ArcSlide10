@@ -16,6 +16,9 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 面积测量，距离测量
+ */
 public class Measure {
 
     ActivityMain activityMain;

@@ -1,11 +1,10 @@
 package com.xiazhiri.ArcSlide10;
 
-import java.util.List;
-
+import android.graphics.Color;
+import android.os.AsyncTask;
 import com.esri.android.map.Callout;
 import com.esri.android.map.GraphicsLayer;
 import com.esri.android.map.MapView;
-import com.esri.core.geometry.Envelope;
 import com.esri.core.geometry.Geometry;
 import com.esri.core.map.Graphic;
 import com.esri.core.symbol.SimpleMarkerSymbol;
@@ -14,11 +13,12 @@ import com.esri.core.tasks.geocode.Locator;
 import com.esri.core.tasks.geocode.LocatorFindParameters;
 import com.esri.core.tasks.geocode.LocatorGeocodeResult;
 
-import android.graphics.Color;
-import android.os.AsyncTask;
+import java.util.List;
 
+/**
+ * 异步搜索
+ */
 public class SearchTask extends AsyncTask<LocatorFindParameters, Void, List<LocatorGeocodeResult>> {
-
 	Locator mLocator;
 	MapView mMapView;
 	GraphicsLayer mGraphicsLayer;

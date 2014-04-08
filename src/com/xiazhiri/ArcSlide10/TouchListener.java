@@ -7,14 +7,21 @@ import com.esri.android.map.MapOnTouchListener;
 import com.esri.android.map.MapView;
 import com.esri.core.geometry.Point;
 import com.esri.core.geometry.SpatialReference;
+import com.esri.core.map.Graphic;
+import com.esri.core.symbol.PictureMarkerSymbol;
 import com.esri.core.tasks.geocode.LocatorReverseGeocodeResult;
+import com.esri.core.tasks.na.StopGraphic;
 
 import java.util.Map;
 
+/**
+ * 地图点击事件监听器
+ */
 public class TouchListener extends MapOnTouchListener {
         MapView mMapView;
         ActivityMain activityMain;
         String touchMode = "Normal";
+        public StopGraphic currentStopGraphic;
 
 		@Override
 		public void onLongPress(MotionEvent point) {
@@ -28,7 +35,7 @@ public class TouchListener extends MapOnTouchListener {
 			}
 			Point mapPoint = mMapView.toMapPoint(point.getX(), point.getY());
             activityMain.mGraphicsLayer.removeAll();
-			//Graphic graphic = new Graphic(mapPoint, new PictureMarkerSymbol(activityMain.getResources().getDrawable(R.drawable.icon_openmap_mark)));
+			Graphic graphic = new Graphic(mapPoint, new PictureMarkerSymbol(activityMain.getResources().getDrawable(R.drawable.icon_openmap_mark)));
 			//activityMain.mGraphicsLayer.addGraphic(graphic);
 			String stopAddress = "";
 			try {
@@ -48,7 +55,7 @@ public class TouchListener extends MapOnTouchListener {
 				activityMain.showCallout(mapPoint.getX() + "," + mapPoint.getY(), mapPoint);
 			}
 			// Add the touch event as a stop
-			//StopGraphic stop = new StopGraphic(graphic);
+			currentStopGraphic = new StopGraphic(graphic);
 			//stop.setName(stopAddress.toString());
 			//mStops.addFeature(stop);
 		}
