@@ -2,11 +2,13 @@ package com.xiazhiri.ArcSlide10;
 
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.support.v4.app.FragmentTransaction;
 import com.esri.android.map.GraphicsLayer;
 import com.esri.core.geometry.Geometry;
 import com.esri.core.geometry.Point;
 import com.esri.core.geometry.SpatialReference;
 import com.esri.core.map.Graphic;
+import com.esri.core.symbol.PictureMarkerSymbol;
 import com.esri.core.symbol.SimpleMarkerSymbol;
 import com.esri.core.tasks.geocode.Locator;
 import com.esri.core.tasks.geocode.LocatorFindParameters;
@@ -58,7 +60,15 @@ public class SearchTask {
         if (result != null && result.getAddressFields() != null) {
             Map<String, String> addressFields = result.getAddressFields();
             address.append(String.format("%s", addressFields.get("SingleKey")));
-            activityMain.showCallout(address.toString(),point);
+            graphicsLayer.removeAll();
+            Graphic graphic = new Graphic(point, new PictureMarkerSymbol(activityMain.getResources().getDrawable(R.drawable.icon_openmap_mark)),3);
+            graphicsLayer.addGraphic(graphic);
+
+            FragmentSearchInfo fragmentSearchInfo = new FragmentSearchInfo();
+            fragmentSearchInfo.infoName = address.toString();
+            fragmentSearchInfo.infoCoord = "100,999";
+            FragmentTransaction fragmentTransaction = activityMain.getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_SearchInfo, fragmentSearchInfo).commit();
         }
     }
 
