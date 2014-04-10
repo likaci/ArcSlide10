@@ -16,9 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
@@ -74,6 +72,7 @@ public class ActivityMain extends SherlockFragmentActivity{
         //mMapView.addLayer(new ArcGISTiledMapServiceLayer("http://cache1.arcgisonline.cn/ArcGIS/rest/services/ChinaOnlineStreetColor/MapServer"));
         mMapView.addLayer(tiledLayer);
         mMapView.addLayer(mGraphicsLayer);
+        mMapView.setMapBackground(0xffffff,0xffffff,0,0);
 
         /*
         FragmentContent fragmentContent = new FragmentContent();
@@ -81,22 +80,60 @@ public class ActivityMain extends SherlockFragmentActivity{
 		getSupportFragmentManager().beginTransaction().add(R.id.fragment_content,fragmentContent).commit();
 		*/
 
-        //region init menu
+        //region 设置SlidingMenu 不替换
         SlidingMenu menu = new SlidingMenu(this);
         menu.setMode(SlidingMenu.LEFT);
         menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
         menu.setShadowWidth(15);
-        //menu.setShadowDrawable(R.drawable.shadow);
-        menu.setBehindOffset(160);
+        //menu_normal.setShadowDrawable(R.drawable.shadow);
+        //menu_normal.setBehindOffset(160);
+        menu.setBehindWidth(300);
         menu.setFadeDegree(0.35f);
-        menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
-        menu.setMenu(R.layout.frame_menu);
+        menu.attachToActivity(this, SlidingMenu.SLIDING_WINDOW);
+        //menu.setMenu(R.layout.menu_container);
+
+        final FragmentMenuNormal fragmentMenuNormal = new FragmentMenuNormal();
+        final FragmentMenuPro fragmentMenuPro = new FragmentMenuPro();
+
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        FragmentMenu fragmentMenu = new FragmentMenu();
-        fragmentTransaction.replace(R.id.fragment_menu,fragmentMenu).commit();
+        fragmentTransaction.replace(R.id.fragment_menu, fragmentMenuNormal).commit();
+
+        View menuContainer = LayoutInflater.from(getBaseContext()).inflate(R.layout.menu_container,null);
+        ((Switch)menuContainer.findViewById(R.id.switchMenuProNormal)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (!b) {
+                    popToast("pro", true);
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.fragment_menu, fragmentMenuNormal).commit();
+                } else {
+                    popToast("normal", true);
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.fragment_menu, fragmentMenuPro).commit();
+                }
+            }
+        });
+
+        menu.setMenu(menuContainer);
+
+        menu.setOnOpenListener(new SlidingMenu.OnOpenListener() {
+            @Override
+            public void onOpen() {
+                mMapView.pause();
+            }
+        });
+        menu.setOnClosedListener(new SlidingMenu.OnClosedListener() {
+            @Override
+            public void onClosed() {
+                mMapView.unpause();
+            }
+        });
         //endregion
 
+
         getSupportActionBar().setHomeButtonEnabled(true);
+
 
         //设置定位器
         ldm = mMapView.getLocationDisplayManager();
@@ -108,6 +145,8 @@ public class ActivityMain extends SherlockFragmentActivity{
         mMapView.setOnTouchListener(touchListener);
 
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

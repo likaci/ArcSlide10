@@ -36,7 +36,13 @@
           <theme>@style/Theme.Sherlock.Light</theme>
         </config>
       </layout>
-      <layout url="file://$PROJECT_DIR$/res/layout/menu.xml">
+      <layout url="file://$PROJECT_DIR$/res/layout/menu_container.xml">
+        <config>
+          <device>Nexus 4</device>
+          <theme>@style/Theme.Sherlock.Light</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/res/layout/menu_normal.xml">
         <config>
           <device>Nexus 4</device>
           <theme>@style/Theme.Sherlock.Light</theme>
@@ -48,14 +54,20 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: com.xiazhiri.ArcSlide10" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c7eb670a-423e-4452-9663-92afb51b85ba" name="Default" comment="">
+    <list default="true" id="c7eb670a-423e-4452-9663-92afb51b85ba" name="Default" comment="查询 导航 拆分 完成">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/FragmentMenuPro.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/layout/menu_container.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/layout/menu_normal.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/layout/menu_pro.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/crittercism_v3_0_3_sdkonly.xml" afterPath="" />
+      <change type="DELETED" beforePath="D:\Dev\Android\ArcSlide10\.idea\libraries\android_support_v41.xml" afterPath="" />
+      <change type="DELETED" beforePath="D:\Dev\Android\ArcSlide10\res\layout\frame_menu.xml" afterPath="" />
+      <change type="DELETED" beforePath="D:\Dev\Android\ArcSlide10\res\layout\menu.xml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/ActivityMain.java" afterPath="$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/ActivityMain.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/FragmentMenu.java" afterPath="$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/FragmentMenu.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/RoutingTask.java" afterPath="$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/RoutingTask.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/SearchTask.java" afterPath="$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/SearchTask.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/TouchListener.java" afterPath="$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/TouchListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/callout.xml" afterPath="$PROJECT_DIR$/res/layout/callout.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidManifest.xml" afterPath="$PROJECT_DIR$/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MOVED" beforePath="D:\Dev\Android\ArcSlide10\src\com\xiazhiri\ArcSlide10\FragmentMenu.java" afterPath="$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/FragmentMenuNormal.java" />
     </list>
     <ignored path="ArcSlide10.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -81,111 +93,82 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ActivityMain.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="ActivityMain.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/ActivityMain.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5931864" vertical-offset="1659" max-vertical-offset="3485">
-              <caret line="254" column="93" selection-start-line="254" selection-start-column="93" selection-end-line="254" selection-end-column="93" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1394" max-vertical-offset="7667">
+              <caret line="95" column="67" selection-start-line="95" selection-start-column="67" selection-end-line="95" selection-end-column="67" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#onCreate#0;class#ActivityMain#0" expanded="false" />
-                <element signature="method#onCreateOptionsMenu#0;class#ActivityMain#0" expanded="false" />
-                <element signature="method#PostText#0;class#ActivityMain#0" expanded="false" />
-                <element signature="e#11823#11839#0" expanded="true" />
-                <element signature="method#getRequestData#0;class#ActivityMain#0" expanded="false" />
+                <element signature="e#4057#4806#0" expanded="true" />
+                <element signature="e#4795#4796#0" expanded="true" />
+                <element signature="e#4879#5028#0" expanded="true" />
+                <element signature="e#5017#5018#0" expanded="true" />
+                <element signature="e#5064#5219#0" expanded="true" />
+                <element signature="e#5208#5209#0" expanded="true" />
+                <element signature="e#6613#6614#0" expanded="true" />
+                <element signature="e#6657#6658#0" expanded="true" />
+                <element signature="e#6949#7191#0" expanded="true" />
+                <element signature="e#7180#7181#0" expanded="true" />
+                <element signature="e#7343#7828#0" expanded="true" />
+                <element signature="e#7817#7818#0" expanded="true" />
+                <element signature="e#7978#8399#0" expanded="true" />
+                <element signature="e#8388#8389#0" expanded="true" />
+                <element signature="e#8554#8907#0" expanded="true" />
+                <element signature="e#8896#8897#0" expanded="true" />
+                <element signature="e#9062#9841#0" expanded="true" />
+                <element signature="e#9830#9831#0" expanded="true" />
+                <element signature="e#13356#13372#0" expanded="true" />
                 <element signature="n#!!doc;n#onDestroy#0;n#ActivityMain#0" expanded="false" />
-                <element signature="e#15465#15674#0" expanded="true" />
-                <element signature="e#15663#15664#0" expanded="true" />
+                <element signature="e#16212#16213#0" expanded="true" />
+                <element signature="e#16245#16246#0" expanded="true" />
+                <element signature="e#16998#17207#0" expanded="true" />
+                <element signature="e#17196#17197#0" expanded="true" />
+                <element signature="e#17451#17610#0" expanded="true" />
+                <element signature="e#17599#17600#0" expanded="true" />
+                <element signature="e#17690#18326#0" expanded="true" />
+                <element signature="e#18315#18316#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="callout.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/res/layout/callout.xml">
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
+      <file leaf-file-name="menu_container.xml" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/res/layout/menu_container.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-10.928572" vertical-offset="0" max-vertical-offset="425">
-              <caret line="18" column="38" selection-start-line="18" selection-start-column="38" selection-end-line="18" selection-end-column="38" />
+            <state vertical-scroll-proportion="0.46822035" vertical-offset="0" max-vertical-offset="476">
+              <caret line="13" column="4" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
               <folding />
             </state>
           </provider>
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
         </entry>
       </file>
-      <file leaf-file-name="TouchListener.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/TouchListener.java">
+      <file leaf-file-name="SlidingMenu.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../SlidingMenuLibrary/src/com/jeremyfeinstein/slidingmenu/lib/SlidingMenu.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="748">
-              <caret line="25" column="50" selection-start-line="25" selection-start-column="50" selection-end-line="25" selection-end-column="50" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="3846" max-vertical-offset="10081">
+              <caret line="374" column="16" selection-start-line="374" selection-start-column="16" selection-end-line="374" selection-end-column="16" />
+              <folding>
+                <element signature="docComment;class#OnOpenedListener#0;class#SlidingMenu#0" expanded="true" />
+                <element signature="e#11848#11849#0" expanded="true" />
+                <element signature="e#11916#11917#0" expanded="true" />
+                <element signature="e#12068#12069#0" expanded="true" />
+                <element signature="e#12100#12101#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FragmentMenuNormal.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/FragmentMenuNormal.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="1411">
+              <caret line="24" column="27" selection-start-line="24" selection-start-column="27" selection-end-line="24" selection-end-column="27" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="docComment;class#TouchListener#0" expanded="true" />
-                <element signature="method#onSingleTap#0;class#TouchListener#0" expanded="false" />
-                <element signature="e#1102#1103#0" expanded="true" />
-                <element signature="e#1142#1143#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SearchTask.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/SearchTask.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="459" max-vertical-offset="1241">
-              <caret line="43" column="47" selection-start-line="43" selection-start-column="47" selection-end-line="43" selection-end-column="47" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="docComment;class#SearchTask#0" expanded="true" />
-                <element signature="class#Searcher#0;class#SearchTask#0" expanded="false" />
-                <element signature="method#onPostExecute#0;class#Searcher#0;class#SearchTask#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FragmentMenu.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/FragmentMenu.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="238" max-vertical-offset="935">
-              <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
-              <folding>
-                <element signature="e#1401#1575#0" expanded="true" />
-                <element signature="e#1564#1565#0" expanded="true" />
-                <element signature="method#onClick#0;class#FragmentMenu#0" expanded="false" />
-                <element signature="method#onCheckedChanged#0;class#FragmentMenu#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RoutingTask.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/RoutingTask.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="85" max-vertical-offset="2108">
-              <caret line="37" column="27" selection-start-line="37" selection-start-column="27" selection-end-line="37" selection-end-column="27" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="docComment;class#RoutingTask#0" expanded="true" />
-                <element signature="e#974#975#0" expanded="true" />
-                <element signature="e#1019#1020#0" expanded="true" />
-                <element signature="e#1050#1051#0" expanded="true" />
-                <element signature="e#1087#1088#0" expanded="true" />
-                <element signature="e#3150#3158#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RoutingAndGeocoding.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../OfflineRoutingAndGeocoding/src/com/esri/arcgis/android/samples/offlineroutingandgeocoding/RoutingAndGeocoding.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="3543" max-vertical-offset="4318">
-              <caret line="103" column="0" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
-              <folding>
-                <element signature="e#10350#10351#0" expanded="true" />
-                <element signature="e#10444#10445#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -291,19 +274,30 @@
         <option value="$PROJECT_DIR$/res/layout/frame_content.xml" />
         <option value="$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/FragmentContent.java" />
         <option value="$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/ActivityCamera.java" />
-        <option value="$PROJECT_DIR$/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/SavePictureTask.java" />
         <option value="$PROJECT_DIR$/res/layout/activity_camera.xml" />
         <option value="$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/Measure.java" />
         <option value="$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/RouteTask.java" />
-        <option value="$PROJECT_DIR$/res/layout/menu.xml" />
         <option value="$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/RoutingTask2.java" />
         <option value="$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/TouchListener.java" />
         <option value="$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/SearchTask.java" />
         <option value="$PROJECT_DIR$/res/layout/callout.xml" />
         <option value="$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/RoutingTask.java" />
+        <option value="$PROJECT_DIR$/.idea/workspace.xml" />
+        <option value="$PROJECT_DIR$/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/res/layout/menuPro.xml" />
+        <option value="$PROJECT_DIR$/../tabtest/res/layout/main.xml" />
+        <option value="$PROJECT_DIR$/../tabtest/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/res/layout/frame_menu.xml" />
+        <option value="$PROJECT_DIR$/res/layout/menu_contenter.xml" />
+        <option value="$PROJECT_DIR$/res/layout/menu.xml" />
         <option value="$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/FragmentMenu.java" />
+        <option value="$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/FragmentMenuNormal.java" />
+        <option value="$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/FragmentMenuPro.java" />
+        <option value="$PROJECT_DIR$/res/layout/menu_pro.xml" />
+        <option value="$PROJECT_DIR$/../SlidingMenuLibrary/src/com/jeremyfeinstein/slidingmenu/lib/SlidingMenu.java" />
         <option value="$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/ActivityMain.java" />
+        <option value="$PROJECT_DIR$/res/layout/menu_container.xml" />
       </list>
     </option>
   </component>
@@ -374,6 +368,66 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope">
+        <subPane subId="Default">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+        <subPane subId="Problems" />
+        <subPane subId="Production">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="ArcSlide10">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="ArcSlide10">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+        <subPane subId="Tests" />
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="ArcSlide10">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+        <subPane subId="Changed Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -381,15 +435,13 @@
               <option name="myItemId" value="ABS" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
-          </PATH>
-          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="ABS" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemId" value="&lt; Android API 19 Platform &gt;" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -398,11 +450,15 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="OfflineRoutingAndGeocoding" />
+              <option name="myItemId" value="&lt; Android API 19 Platform &gt;" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="android.jar" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -412,27 +468,37 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Android" />
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="&lt; Android API 19 Platform &gt;" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="android.jar" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="OfflineRoutingAndGeocoding" />
+              <option name="myItemId" value="android" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+          </PATH>
+          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemId" value="ABS" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="esri" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemId" value="&lt; Android API 19 Platform &gt;" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="arcgis" />
+              <option name="myItemId" value="android.jar" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -440,11 +506,115 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="samples" />
+              <option name="myItemId" value="view" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ABS" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Android" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ABS" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Android" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="offlineroutingandgeocoding" />
+              <option name="myItemId" value="SlidingMenuLibrary" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ABS" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Android" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SlidingMenuLibrary" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ABS" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Android" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SlidingMenuExample" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ABS" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Android" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SlidingMenuExample" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="example" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ABS" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Android" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SlidingMenuExample" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="example" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fragments" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -526,66 +696,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope">
-        <subPane subId="Default">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-        <subPane subId="Problems" />
-        <subPane subId="Production">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="ArcSlide10">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="ArcSlide10">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-        <subPane subId="Tests" />
-        <subPane subId="Project Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="ArcSlide10">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-        <subPane subId="Changed Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -600,8 +710,8 @@
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
     <property name="recentsLimit" value="5" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ApiDemos" />
-    <property name="project.structure.last.edited" value="Global Libraries" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../SlidingMenuExample" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="FullScreen" value="false" />
@@ -629,8 +739,12 @@
     <property name="DEBUGGABLE_DEVICE" value="21d64603" />
     <property name="DEBUGGABLE_PROCESS" value="com.xiazhiri.ArcSlide10" />
     <property name="SHOW_ALL_PROCESSES" value="false" />
+    <property name="UI_DESIGNER_EDITOR_MODE.PaletteToolWindowManager.WIDTH" value="181" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.xiazhiri.ArcSlide10" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Dev\Android\ArcSlide10\res\layout" />
       <recent name="D:\Dev\Android\ArcSlide10\res\drawable-hdpi" />
@@ -772,28 +886,6 @@
       <option name="DEPLOY" value="true" />
       <option name="ARTIFACT_NAME" value="" />
       <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
-      <option name="USE_LAST_SELECTED_DEVICE" value="true" />
-      <option name="PREFERRED_AVD" value="" />
-      <option name="USE_COMMAND_LINE" value="true" />
-      <option name="COMMAND_LINE" value="" />
-      <option name="WIPE_USER_DATA" value="false" />
-      <option name="DISABLE_BOOT_ANIMATION" value="false" />
-      <option name="NETWORK_SPEED" value="full" />
-      <option name="NETWORK_LATENCY" value="none" />
-      <option name="CLEAR_LOGCAT" value="false" />
-      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
-      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
-      <RunnerSettings RunnerId="AndroidDebugRunner" />
-      <ConfigurationWrapper RunnerId="AndroidDebugRunner" />
-      <method />
-    </configuration>
-    <configuration default="false" name="demos" type="AndroidRunConfigurationType" factoryName="Android Application">
-      <module name="demos" />
-      <option name="ACTIVITY_CLASS" value="" />
-      <option name="MODE" value="default_activity" />
-      <option name="DEPLOY" value="true" />
-      <option name="ARTIFACT_NAME" value="" />
-      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
       <option name="USE_LAST_SELECTED_DEVICE" value="false" />
       <option name="PREFERRED_AVD" value="" />
       <option name="USE_COMMAND_LINE" value="true" />
@@ -809,8 +901,8 @@
       <ConfigurationWrapper RunnerId="AndroidDebugRunner" />
       <method />
     </configuration>
-    <configuration default="false" name="ApiDemos" type="AndroidRunConfigurationType" factoryName="Android Application">
-      <module name="ApiDemos" />
+    <configuration default="false" name="SlidingMenuExample" type="AndroidRunConfigurationType" factoryName="Android Application">
+      <module name="SlidingMenuExample" />
       <option name="ACTIVITY_CLASS" value="" />
       <option name="MODE" value="default_activity" />
       <option name="DEPLOY" value="true" />
@@ -827,12 +919,13 @@
       <option name="CLEAR_LOGCAT" value="false" />
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
       <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
+      <RunnerSettings RunnerId="AndroidDebugRunner" />
+      <ConfigurationWrapper RunnerId="AndroidDebugRunner" />
       <method />
     </configuration>
-    <list size="3">
+    <list size="2">
       <item index="0" class="java.lang.String" itemvalue="Android Application.ArcSlide10" />
-      <item index="1" class="java.lang.String" itemvalue="Android Application.demos" />
-      <item index="2" class="java.lang.String" itemvalue="Android Application.ApiDemos" />
+      <item index="1" class="java.lang.String" itemvalue="Android Application.SlidingMenuExample" />
     </list>
     <configuration name="&lt;template&gt;" type="TestNG" default="true" selected="false">
       <option name="MAIN_CLASS_NAME" />
@@ -884,27 +977,28 @@
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27260083" sideWeight="0.6413882" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2642559" sideWeight="0.34768638" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26992288" sideWeight="0.49904397" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26992288" sideWeight="0.49904397" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32545203" sideWeight="0.5488432" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32969153" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2906815" sideWeight="0.6510283" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26564673" sideWeight="0.34768638" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2642559" sideWeight="0.34768638" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.13496144" sideWeight="0.500956" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27260083" sideWeight="0.39910024" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.13496144" sideWeight="0.500956" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2906815" sideWeight="0.34897172" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26564673" sideWeight="0.65231365" order="11" side_tool="false" content_ui="tabs" x="223" y="385" width="794" height="246" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2642559" sideWeight="0.34768638" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2642559" sideWeight="0.65231365" order="11" side_tool="false" content_ui="tabs" x="223" y="385" width="794" height="246" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32969153" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26564673" sideWeight="0.41002572" order="10" side_tool="true" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19087404" sideWeight="0.500956" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15681234" sideWeight="0.49904397" order="3" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2906815" sideWeight="0.34897172" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16452442" sideWeight="0.49904397" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2642559" sideWeight="0.34768638" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
+      <window_info id="Thumbnails" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962447" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -956,44 +1050,45 @@
     <MESSAGE value="美化测量的节点样式" />
     <MESSAGE value="测试拍照上传功能 未完成" />
     <MESSAGE value="拍照上传功能完成" />
-    <option name="LAST_COMMIT_MESSAGE" value="拍照上传功能完成" />
+    <MESSAGE value="查询 导航 拆分 完成" />
+    <option name="LAST_COMMIT_MESSAGE" value="查询 导航 拆分 完成" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/ActivityMain.java</url>
-          <line>316</line>
+          <line>355</line>
           <properties />
           <option name="timeStamp" value="96" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/ActivityMain.java</url>
-          <line>331</line>
+          <line>370</line>
           <properties />
           <option name="timeStamp" value="97" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/ActivityMain.java</url>
-          <line>145</line>
+          <line>184</line>
           <properties />
           <option name="timeStamp" value="98" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/ActivityMain.java</url>
-          <line>299</line>
+          <line>338</line>
           <properties />
           <option name="timeStamp" value="99" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/ActivityMain.java</url>
-          <line>300</line>
+          <line>339</line>
           <properties />
           <option name="timeStamp" value="100" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/ActivityMain.java</url>
-          <line>301</line>
+          <line>340</line>
           <properties />
           <option name="timeStamp" value="101" />
         </line-breakpoint>
@@ -1017,73 +1112,73 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/ActivityMain.java</url>
-          <line>228</line>
+          <line>267</line>
           <properties />
           <option name="timeStamp" value="112" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/ActivityMain.java</url>
-          <line>243</line>
+          <line>282</line>
           <properties />
           <option name="timeStamp" value="113" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/ActivityMain.java</url>
-          <line>249</line>
+          <line>288</line>
           <properties />
           <option name="timeStamp" value="114" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/ActivityMain.java</url>
-          <line>254</line>
+          <line>293</line>
           <properties />
           <option name="timeStamp" value="115" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/ActivityMain.java</url>
-          <line>285</line>
+          <line>324</line>
           <properties />
           <option name="timeStamp" value="116" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/ActivityMain.java</url>
-          <line>287</line>
+          <line>326</line>
           <properties />
           <option name="timeStamp" value="117" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/ActivityMain.java</url>
-          <line>262</line>
+          <line>301</line>
           <properties />
           <option name="timeStamp" value="118" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/ActivityMain.java</url>
-          <line>270</line>
+          <line>309</line>
           <properties />
           <option name="timeStamp" value="119" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/ActivityMain.java</url>
-          <line>281</line>
+          <line>320</line>
           <properties />
           <option name="timeStamp" value="120" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/ActivityMain.java</url>
-          <line>255</line>
+          <line>294</line>
           <properties />
           <option name="timeStamp" value="121" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/ActivityMain.java</url>
-          <line>256</line>
+          <line>295</line>
           <properties />
           <option name="timeStamp" value="122" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/ActivityMain.java</url>
-          <line>260</line>
+          <line>299</line>
           <properties />
           <option name="timeStamp" value="123" />
         </line-breakpoint>
@@ -1091,72 +1186,10 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="124" />
+      <option name="time" value="126" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.settings/org.eclipse.core.runtime.prefs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="471">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.settings/org.eclipse.jdt.core.prefs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="471">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.settings/org.eclipse.ltk.core.refactoring.prefs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="471">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bin/R.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.2227074" vertical-offset="7039" max-vertical-offset="12019">
-          <caret line="447" column="21" selection-start-line="447" selection-start-column="21" selection-end-line="447" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/libs/android-support-v4.jar!/android/support/v4/app/FragmentManagerImpl.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.4" vertical-offset="2517" max-vertical-offset="3417">
-          <caret line="157" column="16" selection-start-line="157" selection-start-column="16" selection-end-line="157" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/libs/android-support-v4.jar!/android/support/v4/app/FragmentActivity.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35526314" vertical-offset="970" max-vertical-offset="2125">
-          <caret line="66" column="19" selection-start-line="66" selection-start-column="19" selection-end-line="66" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/toolbar.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.642857" vertical-offset="0" max-vertical-offset="221">
-          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/topbar.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.0357144" vertical-offset="0" max-vertical-offset="187">
-          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/res/values/style.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.17671518" vertical-offset="0" max-vertical-offset="481">
@@ -1183,27 +1216,10 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../ABSexample/demos/src/com/actionbarsherlock/sample/demos/ActionModes.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.796875" vertical-offset="0" max-vertical-offset="544">
-          <caret line="49" column="11" selection-start-line="49" selection-start-column="11" selection-end-line="49" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../ActionBarSherlock/src/com/actionbarsherlock/view/MenuItem.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.03794643" vertical-offset="306" max-vertical-offset="9962">
           <caret line="36" column="2" selection-start-line="36" selection-start-column="2" selection-end-line="36" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../ABSexample/demos/res/layout/collapsible_edittext.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.0357144" vertical-offset="0" max-vertical-offset="187">
-          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1222,27 +1238,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/collapsible_edittext.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.14049587" vertical-offset="0" max-vertical-offset="484">
           <caret line="4" column="26" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../ABSexample/demos/src/com/actionbarsherlock/sample/demos/CollapsibleActionItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3984375" vertical-offset="102" max-vertical-offset="646">
-          <caret line="32" column="16" selection-start-line="32" selection-start-column="16" selection-end-line="32" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../ABSexample/demos/src/com/actionbarsherlock/sample/demos/SearchViews.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.19921875" vertical-offset="255" max-vertical-offset="1649">
-          <caret line="51" column="0" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
-        </state>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../ActionBarSherlock/.classpath">
@@ -1290,38 +1292,20 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/activity_main.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.73434126" vertical-offset="0" max-vertical-offset="527">
-          <caret line="20" column="30" selection-start-line="20" selection-start-column="30" selection-end-line="20" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/frame_content.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.30493274" vertical-offset="0" max-vertical-offset="446">
           <caret line="8" column="35" selection-start-line="8" selection-start-column="35" selection-end-line="8" selection-end-column="35" />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/Pro/adt-bundle-windows-x86_64-20131030/sdk/platforms/android-19/android.jar!/android/view/ViewGroup.class">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33333334" vertical-offset="2558" max-vertical-offset="6698">
           <caret line="161" column="16" selection-start-line="161" selection-start-column="16" selection-end-line="161" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/Pro/adt-bundle-windows-x86_64-20131030/sdk/platforms/android-19/android.jar!/android/view/View.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3148148" vertical-offset="16286" max-vertical-offset="20094">
-          <caret line="974" column="41" selection-start-line="974" selection-start-column="41" selection-end-line="974" selection-end-column="41" />
         </state>
       </provider>
     </entry>
@@ -1339,14 +1323,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.19712526" vertical-offset="91" max-vertical-offset="578">
-          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/SavePictureTask.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.31416836" vertical-offset="0" max-vertical-offset="561">
@@ -1354,21 +1330,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../ApiDemos/src/com/example/android/apis/graphics/CameraPreview.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2074" max-vertical-offset="4692">
-          <caret line="166" column="10" selection-start-line="166" selection-start-column="10" selection-end-line="166" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/activity_camera.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6666667" vertical-offset="0" max-vertical-offset="459">
           <caret line="18" column="45" selection-start-line="18" selection-start-column="45" selection-end-line="18" selection-end-column="45" />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/menu/activity_main.xml">
@@ -1379,24 +1348,70 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/frame_menu.xml">
+    <entry file="file://$PROJECT_DIR$/res/layout/callout.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.64830506" vertical-offset="0" max-vertical-offset="472">
+          <caret line="18" column="38" selection-start-line="18" selection-start-column="38" selection-end-line="18" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
       <provider editor-type-id="android-designer">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/SearchTask.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.25265393" vertical-offset="0" max-vertical-offset="471">
-          <caret line="7" column="12" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="459" max-vertical-offset="1241">
+          <caret line="43" column="47" selection-start-line="43" selection-start-column="47" selection-end-line="43" selection-end-column="47" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/menu.xml">
+    <entry file="file://$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/RoutingTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="103" max-vertical-offset="1887">
+          <caret line="37" column="36" selection-start-line="37" selection-start-column="36" selection-end-line="37" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/TouchListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="102" max-vertical-offset="731">
+          <caret line="21" column="16" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/activity_main.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.20762712" vertical-offset="55" max-vertical-offset="527">
+          <caret line="9" column="41" selection-start-line="9" selection-start-column="41" selection-end-line="9" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
       <provider editor-type-id="android-designer">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/modules.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6029724" vertical-offset="770" max-vertical-offset="1241">
-          <caret line="62" column="42" selection-start-line="62" selection-start-column="42" selection-end-line="62" selection-end-column="42" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="487">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="25449">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.17" vertical-offset="0" max-vertical-offset="578">
+          <caret line="5" column="38" selection-start-line="5" selection-start-column="38" selection-end-line="5" selection-end-column="38" />
           <folding />
         </state>
       </provider>
@@ -1405,140 +1420,215 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="85" max-vertical-offset="1530">
           <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/FragmentContent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="323">
-          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.34" vertical-offset="0" max-vertical-offset="500">
+          <caret line="14" column="14" selection-start-line="14" selection-start-column="14" selection-end-line="14" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gen/com/xiazhiri/ArcSlide10/R.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="456">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/Measure.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1734">
+        <state vertical-scroll-proportion="0.0" vertical-offset="68" max-vertical-offset="1734">
           <caret line="19" column="11" selection-start-line="19" selection-start-column="11" selection-end-line="19" selection-end-column="11" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../PlaceSearch/src/com/arcgis/android/tutorial/placesearch/PlaceSearchActivity.java">
+    <entry file="file://$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/FragmentMenuPro.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2193" max-vertical-offset="4964">
-          <caret line="196" column="22" selection-start-line="196" selection-start-column="22" selection-end-line="196" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="docComment;class#PlaceSearchActivity#0" expanded="false" />
-            <element signature="docComment;method#onCreate#0;class#PlaceSearchActivity#0" expanded="false" />
-            <element signature="e#5054#5055#0" expanded="false" />
-            <element signature="e#5075#5076#0" expanded="false" />
-            <element signature="class#MyRunnable#0;class#PlaceSearchActivity#0" expanded="false" />
-            <element signature="e#7840#7841#0" expanded="false" />
-            <element signature="e#7909#7910#0" expanded="false" />
-            <element signature="class#MyLocationListener#0;class#PlaceSearchActivity#0" expanded="false" />
-            <element signature="e#10603#10604#0" expanded="false" />
-            <element signature="e#10619#10620#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../OfflineRoutingAndGeocoding/src/com/esri/arcgis/android/samples/offlineroutingandgeocoding/RoutingAndGeocoding.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="3679" max-vertical-offset="4165">
-          <caret line="103" column="0" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
-          <folding>
-            <element signature="e#10350#10351#0" expanded="true" />
-            <element signature="e#10444#10445#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/callout.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.928572" vertical-offset="0" max-vertical-offset="425">
-          <caret line="18" column="38" selection-start-line="18" selection-start-column="38" selection-end-line="18" selection-end-column="38" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1292">
+          <caret line="28" column="13" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/TouchListener.java">
+    <entry file="file://$PROJECT_DIR$/res/layout/menu_pro.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="748">
-          <caret line="25" column="50" selection-start-line="25" selection-start-column="50" selection-end-line="25" selection-end-column="50" />
+        <state vertical-scroll-proportion="-14.571428" vertical-offset="119" max-vertical-offset="646">
+          <caret line="31" column="13" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/menu_normal.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.8214285" vertical-offset="0" max-vertical-offset="1156">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../SlidingMenuExample/.classpath">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="500">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../SlidingMenuExample/example.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="500">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../SlidingMenuExample/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="867">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../SlidingMenuExample/src/com/jeremyfeinstein/slidingmenu/example/ExampleListActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="1581">
+          <caret line="30" column="13" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../SlidingMenuExample/res/values/styles.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.102" vertical-offset="0" max-vertical-offset="500">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../SlidingMenuExample/src/com/jeremyfeinstein/slidingmenu/example/AttachExample.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="884">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/Pro/adt-bundle-windows-x86_64-20131030/sdk/platforms/android-19/android.jar!/android/view/View.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33264887" vertical-offset="15886" max-vertical-offset="20094">
+          <caret line="951" column="35" selection-start-line="951" selection-start-column="35" selection-end-line="951" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../SlidingMenuLibrary/src/com/jeremyfeinstein/slidingmenu/lib/CustomViewBehind.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.462" vertical-offset="0" max-vertical-offset="6715">
+          <caret line="68" column="16" selection-start-line="68" selection-start-column="16" selection-end-line="68" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/Pro/adt-bundle-windows-x86_64-20131030/sdk/platforms/android-19/android.jar!/android/view/LayoutInflater.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.17453799" vertical-offset="0" max-vertical-offset="1003">
+          <caret line="6" column="22" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/FragmentMenuNormal.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="1411">
+          <caret line="24" column="27" selection-start-line="24" selection-start-column="27" selection-end-line="24" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="docComment;class#TouchListener#0" expanded="true" />
-            <element signature="method#onSingleTap#0;class#TouchListener#0" expanded="false" />
-            <element signature="e#1102#1103#0" expanded="true" />
-            <element signature="e#1142#1143#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/SearchTask.java">
+    <entry file="file://$PROJECT_DIR$/../SlidingMenuExample/src/com/jeremyfeinstein/slidingmenu/example/fragments/ResponsiveUIActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="459" max-vertical-offset="1241">
-          <caret line="43" column="47" selection-start-line="43" selection-start-column="47" selection-end-line="43" selection-end-column="47" />
+        <state vertical-scroll-proportion="0.578" vertical-offset="255" max-vertical-offset="1870">
+          <caret line="42" column="4" selection-start-line="42" selection-start-column="4" selection-end-line="42" selection-end-column="4" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="docComment;class#SearchTask#0" expanded="true" />
-            <element signature="class#Searcher#0;class#SearchTask#0" expanded="false" />
-            <element signature="method#onPostExecute#0;class#Searcher#0;class#SearchTask#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/FragmentMenu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="238" max-vertical-offset="935">
-          <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
-          <folding>
-            <element signature="e#1401#1575#0" expanded="true" />
-            <element signature="e#1564#1565#0" expanded="true" />
-            <element signature="method#onClick#0;class#FragmentMenu#0" expanded="false" />
-            <element signature="method#onCheckedChanged#0;class#FragmentMenu#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/RoutingTask.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="85" max-vertical-offset="2108">
-          <caret line="37" column="27" selection-start-line="37" selection-start-column="27" selection-end-line="37" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;class#RoutingTask#0" expanded="true" />
-            <element signature="e#974#975#0" expanded="true" />
-            <element signature="e#1019#1020#0" expanded="true" />
-            <element signature="e#1050#1051#0" expanded="true" />
-            <element signature="e#1087#1088#0" expanded="true" />
-            <element signature="e#3150#3158#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/xiazhiri/ArcSlide10/ActivityMain.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5931864" vertical-offset="1659" max-vertical-offset="3485">
-          <caret line="254" column="93" selection-start-line="254" selection-start-column="93" selection-end-line="254" selection-end-column="93" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1394" max-vertical-offset="7667">
+          <caret line="95" column="67" selection-start-line="95" selection-start-column="67" selection-end-line="95" selection-end-column="67" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#onCreate#0;class#ActivityMain#0" expanded="false" />
-            <element signature="method#onCreateOptionsMenu#0;class#ActivityMain#0" expanded="false" />
-            <element signature="method#PostText#0;class#ActivityMain#0" expanded="false" />
-            <element signature="e#11823#11839#0" expanded="true" />
-            <element signature="method#getRequestData#0;class#ActivityMain#0" expanded="false" />
+            <element signature="e#4057#4806#0" expanded="true" />
+            <element signature="e#4795#4796#0" expanded="true" />
+            <element signature="e#4879#5028#0" expanded="true" />
+            <element signature="e#5017#5018#0" expanded="true" />
+            <element signature="e#5064#5219#0" expanded="true" />
+            <element signature="e#5208#5209#0" expanded="true" />
+            <element signature="e#6613#6614#0" expanded="true" />
+            <element signature="e#6657#6658#0" expanded="true" />
+            <element signature="e#6949#7191#0" expanded="true" />
+            <element signature="e#7180#7181#0" expanded="true" />
+            <element signature="e#7343#7828#0" expanded="true" />
+            <element signature="e#7817#7818#0" expanded="true" />
+            <element signature="e#7978#8399#0" expanded="true" />
+            <element signature="e#8388#8389#0" expanded="true" />
+            <element signature="e#8554#8907#0" expanded="true" />
+            <element signature="e#8896#8897#0" expanded="true" />
+            <element signature="e#9062#9841#0" expanded="true" />
+            <element signature="e#9830#9831#0" expanded="true" />
+            <element signature="e#13356#13372#0" expanded="true" />
             <element signature="n#!!doc;n#onDestroy#0;n#ActivityMain#0" expanded="false" />
-            <element signature="e#15465#15674#0" expanded="true" />
-            <element signature="e#15663#15664#0" expanded="true" />
+            <element signature="e#16212#16213#0" expanded="true" />
+            <element signature="e#16245#16246#0" expanded="true" />
+            <element signature="e#16998#17207#0" expanded="true" />
+            <element signature="e#17196#17197#0" expanded="true" />
+            <element signature="e#17451#17610#0" expanded="true" />
+            <element signature="e#17599#17600#0" expanded="true" />
+            <element signature="e#17690#18326#0" expanded="true" />
+            <element signature="e#18315#18316#0" expanded="true" />
           </folding>
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../SlidingMenuLibrary/src/com/jeremyfeinstein/slidingmenu/lib/SlidingMenu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="3846" max-vertical-offset="10081">
+          <caret line="374" column="16" selection-start-line="374" selection-start-column="16" selection-end-line="374" selection-end-column="16" />
+          <folding>
+            <element signature="docComment;class#OnOpenedListener#0;class#SlidingMenu#0" expanded="true" />
+            <element signature="e#11848#11849#0" expanded="true" />
+            <element signature="e#11916#11917#0" expanded="true" />
+            <element signature="e#12068#12069#0" expanded="true" />
+            <element signature="e#12100#12101#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/menu_container.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.46822035" vertical-offset="0" max-vertical-offset="476">
+          <caret line="13" column="4" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
   </component>
@@ -1594,7 +1684,7 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>Android</last-edited>
+          <last-edited>SlidingMenuExample</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

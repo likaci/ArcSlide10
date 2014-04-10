@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="45sp"
+
+            android:text="基本功能"
+            android:textSize="25sp"
+            android:gravity="center"
+            />
+    <CheckBox
+            android:id="@+id/cbLoaction"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            android:text="定位"
+            android:textSize="20sp"
+            />
+    <View android:layout_width="510px" android:layout_height="2px" android:background="#ff909090" android:layout_margin="10dp"/>
+    <CheckBox android:text="长度测量"
+              android:textSize="20sp"
+              android:id="@+id/rbLongth"
+              android:layout_width="fill_parent"
+              android:layout_height="40dp"
+              android:gravity="center_vertical"
+            />
+    <CheckBox android:text="面积测量"
+              android:textSize="20sp"
+              android:id="@+id/rbPolygon"
+              android:layout_width="fill_parent"
+              android:layout_height="40dp"
+              android:gravity="center_vertical"
+            />
+    <View android:layout_width="fill_parent" android:layout_height="2px" android:background="#ff909090" android:layout_margin="10dp"/>
+
+    <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner" />
+
+    <View android:layout_width="fill_parent" android:layout_height="2px" android:background="#ff909090" android:layout_margin="10dp"/>
+    <TextView android:text="起点: "
+              android:textSize="20sp"
+              android:id="@+id/tvStartPoint"
+              android:layout_width="fill_parent"
+              android:layout_height="40dp"
+              android:gravity="center_vertical"/>
+    <TextView android:text="终点: "
+              android:textSize="20sp"
+              android:id="@+id/tvEndPoint"
+              android:layout_height="40dp"
+              android:gravity="center_vertical"/>
+    <Button android:text="计算路径"
+            android:textSize="20sp"
+            android:id="@+id/btnCalcRoute"
+            android:gravity="center"/>
+    <View android:layout_width="fill_parent" android:layout_height="2px" android:background="#ff909090" android:layout_margin="10dp"/>
+</TableLayout>
