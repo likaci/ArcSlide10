@@ -8,25 +8,36 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="45sp"
-
             android:text="高级功能"
             android:textSize="25sp"
             android:gravity="center"
             />
-    <TextView android:text="起点: "
-              android:textSize="20sp"
-              android:id="@+id/tvStartPoint"
-              android:layout_width="fill_parent"
-              android:layout_height="40dp"
-              android:gravity="center_vertical"/>
-    <TextView android:text="终点: "
-              android:textSize="20sp"
-              android:id="@+id/tvEndPoint"
-              android:layout_height="40dp"
-              android:gravity="center_vertical"/>
-    <Button android:text="计算路径"
-            android:textSize="20sp"
-            android:id="@+id/btnCalcRoute"
-            android:gravity="center"/>
+        <View android:layout_width="fill_parent" android:layout_height="4px" android:background="#ff909090" android:layout_margin="10dp"/>
+        <TextView android:text="随手拍:"
+                  android:textSize="20sp"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"/>
+    <TableRow android:gravity="center">
+        <Button android:text="拍照"
+                android:textSize="20sp"
+                android:gravity="center" android:layout_column="1"/>
+        <Button android:text="上传"
+                android:textSize="20sp"
+                android:gravity="center" android:layout_column="2"/>
+    </TableRow>
     <View android:layout_width="fill_parent" android:layout_height="2px" android:background="#ff909090" android:layout_margin="10dp"/>
+    <TextView android:text="生产信息:"
+              android:textSize="20sp"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"/>
+    <TableRow android:gravity="center">
+        <Button android:text="产量"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:layout_column="1"
+                />
+        <Button android:text="注水量"
+                android:textSize="20sp"
+                android:gravity="center" android:layout_column="2"/>
+    </TableRow>
 </TableLayout>

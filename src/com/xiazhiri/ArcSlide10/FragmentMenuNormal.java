@@ -7,10 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 
-public class FragmentMenuNormal extends Fragment implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
+public class FragmentMenuNormal extends Fragment implements View.OnClickListener, CheckBox.OnCheckedChangeListener {
 
     ActivityMain mActivityMain;
     FrameLayout mFrameLayout;
+    View contexView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -23,58 +24,74 @@ public class FragmentMenuNormal extends Fragment implements View.OnClickListener
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View contextView = inflater.inflate(R.layout.menu_normal, container, false);
-        /*
-        LinearLayout layout = (LinearLayout) contextView.findViewById(R.id.listMenu_layout);
+        TableLayout layout = (TableLayout) contextView.findViewById(R.id.menu_normal_list);
         for (int i = 0; i < layout.getChildCount(); i++)
-            layout.getChildAt(i).setOnClickListener(this);
-        */
-        //计算路径
-        ((Button)contextView.findViewById(R.id.btnCalcRoute)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mActivityMain.routingTask.FindRoute();
+            try {
+                layout.getChildAt(i).setOnClickListener(this);
+                ((CheckBox)layout.getChildAt(i)).setOnCheckedChangeListener(this);
+            } catch (Exception e)
+            {
+                e.printStackTrace();
             }
-        });
+        this.contexView = contextView;
         return contextView;
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
+            default:
+                break;
+
             case R.id.cbLoaction:
                 if (((CheckBox)mActivityMain.findViewById(R.id.cbLoaction)).isChecked())
                     mActivityMain.ldm.start();
                 else
                     mActivityMain.ldm.stop();
                 break;
-            /*
-            case R.id.cbIsMeasure:
-                if (((CheckBox)mActivityMain.findViewById(R.id.cbIsMeasure)).isChecked()) {
-                    mActivityMain.touchListener.touchMode = "Measure";
-                    ((RadioGroup) contextView.findViewById(R.id.rgMeasure)).setClickable(true);
-                }
-                else {
-                    mActivityMain.touchListener.touchMode = "Normal";
-                    ((RadioGroup) contextView.findViewById(R.id.rgMeasure)).clearCheck();
-                    ((RadioGroup) contextView.findViewById(R.id.rgMeasure)).setClickable(false);
-                }
+            case R.id.longthMeasure:
+                if (((CheckBox)mActivityMain.findViewById(R.id.longthMeasure)).isChecked())
+                    mActivityMain.measure = new Measure(mActivityMain,mActivityMain.mGraphicsLayer,1);
                 break;
-                */
-            default:
-                break;
+            case R.id.areaMeasure:
+                if (((CheckBox)mActivityMain.findViewById(R.id.areaMeasure)).isChecked())
+                    mActivityMain.measure = new Measure(mActivityMain,mActivityMain.mGraphicsLayer,2);
         }
     }
 
+
     @Override
-    public void onCheckedChanged(RadioGroup radioGroup, int i) {
-        switch (i){
-            case R.id.rbLongth:
-                mActivityMain.measure = new Measure(mActivityMain,mActivityMain.mGraphicsLayer,1);
+    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        switch (compoundButton.getId()){
+            case R.id.cbLoaction:
+                if (b)
+                    mActivityMain.ldm.start();
+                else
+                    mActivityMain.ldm.stop();
                 break;
-            case R.id.rbPolygon:
-                mActivityMain.measure = new Measure(mActivityMain,mActivityMain.mGraphicsLayer,2);
+            case R.id.longthMeasure:
+                if (b) {
+                    mActivityMain.measure = new Measure(mActivityMain, mActivityMain.mGraphicsLayer, 1);
+                    ((CheckBox)contexView.findViewById(R.id.areaMeasure)).setChecked(false);
+                }
+                if (((CheckBox)contexView.findViewById(R.id.longthMeasure)).isChecked() | ((CheckBox)contexView.findViewById(R.id.areaMeasure)).isChecked())
+                    mActivityMain.touchListener.touchMode = "Measure";
+                else
+                    mActivityMain.touchListener.touchMode = "Normal";
+                break;
+            case R.id.areaMeasure:
+                if (b) {
+                    mActivityMain.measure = new Measure(mActivityMain, mActivityMain.mGraphicsLayer, 2);
+                    ((CheckBox)contexView.findViewById(R.id.longthMeasure)).setChecked(false);
+                }
+                if (((CheckBox)contexView.findViewById(R.id.longthMeasure)).isChecked() | ((CheckBox)contexView.findViewById(R.id.areaMeasure)).isChecked())
+                    mActivityMain.touchListener.touchMode = "Measure";
+                else
+                    mActivityMain.touchListener.touchMode = "Normal";
+                break;
             default:
                 break;
         }
+
     }
 }

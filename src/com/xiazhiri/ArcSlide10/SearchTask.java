@@ -1,15 +1,12 @@
 package com.xiazhiri.ArcSlide10;
 
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentTransaction;
 import com.esri.android.map.GraphicsLayer;
-import com.esri.core.geometry.Geometry;
 import com.esri.core.geometry.Point;
 import com.esri.core.geometry.SpatialReference;
 import com.esri.core.map.Graphic;
 import com.esri.core.symbol.PictureMarkerSymbol;
-import com.esri.core.symbol.SimpleMarkerSymbol;
 import com.esri.core.tasks.geocode.Locator;
 import com.esri.core.tasks.geocode.LocatorFindParameters;
 import com.esri.core.tasks.geocode.LocatorGeocodeResult;
@@ -40,13 +37,13 @@ public class SearchTask {
         activityMain.mMapView.addLayer(graphicsLayer);
     }
 
-    //地理编码
+    //地理编码 搜索按钮
     public void Search(LocatorFindParameters locatorFindParameters){
         Searcher searcher = new Searcher();
         searcher.execute(locatorFindParameters);
     }
 
-    //反地理编码
+    //反地理编码 长按屏幕查询
     public void Search(Point point){
         SpatialReference mapRef = activityMain.mMapView.getSpatialReference();
         LocatorReverseGeocodeResult result = null;
@@ -60,16 +57,20 @@ public class SearchTask {
         if (result != null && result.getAddressFields() != null) {
             Map<String, String> addressFields = result.getAddressFields();
             address.append(String.format("%s", addressFields.get("SingleKey")));
-            graphicsLayer.removeAll();
-            Graphic graphic = new Graphic(point, new PictureMarkerSymbol(activityMain.getResources().getDrawable(R.drawable.icon_openmap_mark)),3);
-            graphicsLayer.addGraphic(graphic);
-
-            FragmentSearchInfo fragmentSearchInfo = new FragmentSearchInfo();
-            fragmentSearchInfo.infoName = address.toString();
-            fragmentSearchInfo.infoCoord = "100,999";
-            FragmentTransaction fragmentTransaction = activityMain.getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_SearchInfo, fragmentSearchInfo).commit();
+            setInfoAndMark(point,address.toString());
         }
+    }
+
+    public void setInfoAndMark(Point point, String name) {
+        graphicsLayer.removeAll();
+        Graphic graphic = new Graphic(point, new PictureMarkerSymbol(activityMain.getResources().getDrawable(R.drawable.icon_openmap_mark)),3);
+        graphicsLayer.addGraphic(graphic);
+
+        FragmentSearchInfo fragmentSearchInfo = new FragmentSearchInfo();
+        fragmentSearchInfo.infoName = name;
+        fragmentSearchInfo.point = point;
+        FragmentTransaction fragmentTransaction = activityMain.getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_SearchInfo, fragmentSearchInfo).commit();
     }
 
     class Searcher extends AsyncTask<LocatorFindParameters, Void, List<LocatorGeocodeResult>> {
@@ -78,24 +79,12 @@ public class SearchTask {
                 //Toast.makeText(ActivityMain.this, "No result found.", Toast.LENGTH_LONG).show();
             } else {
                 geocodeResult = result.get(0);
-                //dialog = ProgressDialog.show(mMapView.getContext(), "Geocoder", "Searching for address ...");
-                Geometry resultLocGeom = geocodeResult.getLocation();
-                SimpleMarkerSymbol resultSymbol = new SimpleMarkerSymbol(Color.BLUE, 20, SimpleMarkerSymbol.STYLE.CIRCLE);
-                Graphic resultLocation = new Graphic(resultLocGeom, resultSymbol);
-                graphicsLayer.addGraphic(resultLocation);
-
                 activityMain.mMapView.zoomToResolution(geocodeResult.getLocation(), 2);
 
-                String place = geocodeResult.getAddress();
-                activityMain.showCallout(place, geocodeResult.getLocation());
+                Point point = new Point(geocodeResult.getLocation().getX(),geocodeResult.getLocation().getY());
+                String pointName = geocodeResult.getAddress();
 
-                /*
-                TextSymbol resultAddress = new TextSymbol(12, geocodeResult.getAddress(), Color.BLACK);
-                resultAddress.setOffsetX(10);
-                resultAddress.setOffsetY(50);
-                Graphic resultText = new Graphic(resultLocGeom, resultAddress);
-                graphicsLayer.addGraphic(resultText);
-                */
+                setInfoAndMark(point,pointName);
             }
         }
         @Override

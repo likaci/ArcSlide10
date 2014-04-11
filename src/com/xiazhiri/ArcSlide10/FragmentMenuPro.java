@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 
-public class FragmentMenuPro extends Fragment implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
+public class FragmentMenuPro extends Fragment implements View.OnClickListener {
 
     ActivityMain mActivityMain;
     FrameLayout mFrameLayout;
@@ -26,13 +26,6 @@ public class FragmentMenuPro extends Fragment implements View.OnClickListener, R
 /*        LinearLayout layout = (LinearLayout) contextView.findViewById(R.id.listMenu_layout);
         for (int i = 0; i < layout.getChildCount(); i++)
             layout.getChildAt(i).setOnClickListener(this);*/
-        //计算路径
-        ((Button)contextView.findViewById(R.id.btnCalcRoute)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mActivityMain.routingTask.FindRoute();
-            }
-        });
         return contextView;
     }
 
@@ -58,19 +51,6 @@ public class FragmentMenuPro extends Fragment implements View.OnClickListener, R
                 }
                 break;
                 */
-            default:
-                break;
-        }
-    }
-
-    @Override
-    public void onCheckedChanged(RadioGroup radioGroup, int i) {
-        switch (i){
-            case R.id.rbLongth:
-                mActivityMain.measure = new Measure(mActivityMain,mActivityMain.mGraphicsLayer,1);
-                break;
-            case R.id.rbPolygon:
-                mActivityMain.measure = new Measure(mActivityMain,mActivityMain.mGraphicsLayer,2);
             default:
                 break;
         }

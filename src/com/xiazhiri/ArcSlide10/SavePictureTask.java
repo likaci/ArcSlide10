@@ -11,7 +11,6 @@ import java.util.Date;
 public class SavePictureTask extends AsyncTask<byte[], String, String> {
     @Override
     protected String doInBackground(byte[]... params) {
-        // TODO Auto-generated method stub
         //创建文件
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         File picture = new File(Environment.getExternalStorageDirectory(), timeStamp + ".jpg");

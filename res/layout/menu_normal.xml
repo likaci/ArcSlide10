@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/menu_normal_list"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
@@ -12,6 +13,7 @@
             android:textSize="25sp"
             android:gravity="center"
             />
+    <View android:layout_width="fill_parent" android:layout_height="4px" android:background="#ff909090" android:layout_margin="10dp"/>
     <CheckBox
             android:id="@+id/cbLoaction"
             android:layout_width="wrap_content"
@@ -20,43 +22,44 @@
             android:text="定位"
             android:textSize="20sp"
             />
-    <View android:layout_width="510px" android:layout_height="2px" android:background="#ff909090" android:layout_margin="10dp"/>
+    <View android:layout_width="fill_parent" android:layout_height="2px" android:background="#ff909090" android:layout_margin="10dp"/>
     <CheckBox android:text="长度测量"
               android:textSize="20sp"
-              android:id="@+id/rbLongth"
+              android:id="@+id/longthMeasure"
               android:layout_width="fill_parent"
               android:layout_height="40dp"
               android:gravity="center_vertical"
             />
     <CheckBox android:text="面积测量"
               android:textSize="20sp"
-              android:id="@+id/rbPolygon"
+              android:id="@+id/areaMeasure"
               android:layout_width="fill_parent"
               android:layout_height="40dp"
               android:gravity="center_vertical"
             />
     <View android:layout_width="fill_parent" android:layout_height="2px" android:background="#ff909090" android:layout_margin="10dp"/>
-
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="图集加载:"
+            android:textSize="20sp"
+            />
     <Spinner
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/spinner" />
 
     <View android:layout_width="fill_parent" android:layout_height="2px" android:background="#ff909090" android:layout_margin="10dp"/>
-    <TextView android:text="起点: "
-              android:textSize="20sp"
-              android:id="@+id/tvStartPoint"
-              android:layout_width="fill_parent"
-              android:layout_height="40dp"
-              android:gravity="center_vertical"/>
-    <TextView android:text="终点: "
-              android:textSize="20sp"
-              android:id="@+id/tvEndPoint"
-              android:layout_height="40dp"
-              android:gravity="center_vertical"/>
-    <Button android:text="计算路径"
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="图层控制:"
             android:textSize="20sp"
-            android:id="@+id/btnCalcRoute"
-            android:gravity="center"/>
+            />
+    <CheckBox/>
+    <CheckBox/>
+    <CheckBox/>
     <View android:layout_width="fill_parent" android:layout_height="2px" android:background="#ff909090" android:layout_margin="10dp"/>
 </TableLayout>
