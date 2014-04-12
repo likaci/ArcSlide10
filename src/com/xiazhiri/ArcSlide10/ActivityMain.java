@@ -21,12 +21,12 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.widget.SearchView;
-import com.esri.android.map.GraphicsLayer;
+import com.esri.android.map.*;
 import com.esri.android.map.GraphicsLayer.RenderingMode;
-import com.esri.android.map.LocationDisplayManager;
-import com.esri.android.map.MapView;
-import com.esri.android.map.TiledLayer;
 import com.esri.android.map.ags.ArcGISLocalTiledLayer;
+import com.esri.android.map.ags.ArcGISTiledMapServiceLayer;
+import com.esri.core.geodatabase.Geodatabase;
+import com.esri.core.geodatabase.GeodatabaseFeatureTable;
 import com.esri.core.geometry.Point;
 import com.esri.core.tasks.geocode.Locator;
 import com.esri.core.tasks.geocode.LocatorFindParameters;
@@ -53,8 +53,10 @@ public class ActivityMain extends SherlockFragmentActivity{
 
     String extern = Environment.getExternalStorageDirectory().getPath();
     String tpkPath     = "/Likaci/DY.tpk";
+    //String tpkPath     = "/Likaci/SanDiego.tpk";
     String locatorPath = "/Likaci/locator/DY.loc";
-    String networkPath = "/Likaci/data/line.geodatabase";
+    //String networkPath = "/Likaci/data/offlinedata.geodatabase";
+    String networkPath = "/Likaci/data/default.geodatabase";
     String networkName = "Streets_ND";
 
     Measure measure = null;
@@ -68,7 +70,10 @@ public class ActivityMain extends SherlockFragmentActivity{
 
         mMapView = (MapView)findViewById(R.id.map);
         tiledLayer = new ArcGISLocalTiledLayer(extern + tpkPath);
+
         //mMapView.addLayer(new ArcGISTiledMapServiceLayer("http://cache1.arcgisonline.cn/ArcGIS/rest/services/ChinaOnlineStreetColor/MapServer"));
+        //mMapView.addLayer(new ArcGISTiledMapServiceLayer( "http://services.arcgisonline.com/ArcGIS/rest/services/ESRI_StreetMap_World_2D/MapServer"));
+
         mMapView.addLayer(tiledLayer);
         mMapView.addLayer(mGraphicsLayer);
         mMapView.setMapBackground(0xEFF4F2,0xEFF4F2,0,0);
@@ -172,52 +177,36 @@ public class ActivityMain extends SherlockFragmentActivity{
 
 
 
-        MenuItem menuItem = menu.add("Post");
+        MenuItem menuItem = menu.add("AddOnline");
         menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                uploadFile("http://10.11.204.71/index.php",null);
+                mMapView.addLayer(new ArcGISTiledMapServiceLayer("http://cache1.arcgisonline.cn/ArcGIS/rest/services/ChinaOnlineStreetColor/MapServer"));
                 return false;
             }
         });
 
 
-
-        menuItem = menu.add("替换");
+        menuItem = menu.add("Add");
         menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                FragmentSearchInfo fragmentSearchInfo = new FragmentSearchInfo();
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_SearchInfo,fragmentSearchInfo);
-                fragmentTransaction.commit();
-                return false;
-            }
-        });
-
-        menuItem = menu.add("切换");
-        menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.hide(getSupportFragmentManager().getFragments().get(1));
-                fragmentTransaction.commit();
-                return false;
-            }
-        });
-
-
-        menuItem = menu.add("拍照(内嵌)");
-        menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                Intent intent = new Intent();
-                intent.setClass(ActivityMain.this, ActivityCamera.class);
-                ActivityMain.this.startActivity(intent);
+                try {
+                    Geodatabase geodatabase = new Geodatabase(extern + networkPath);
+                    for (GeodatabaseFeatureTable gdbFeatureTable : geodatabase.getGeodatabaseTables()) {
+                        if (gdbFeatureTable.hasGeometry()) {
+                            mMapView.addLayer(new FeatureLayer(gdbFeatureTable));
+                            mMapView.zoomToScale(gdbFeatureTable.getExtent().getCenter(),mMapView.getMaxScale());
+                            Log.i("FeatureLayer", gdbFeatureTable.getTableName() + " Load OK");
+                            Log.i("LayerRef", gdbFeatureTable.getSpatialReference().toString());
+                        }
+                        Log.i("mapRef", mMapView.getSpatialReference().toString());
+                    }
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
                 return false;
             }
         });

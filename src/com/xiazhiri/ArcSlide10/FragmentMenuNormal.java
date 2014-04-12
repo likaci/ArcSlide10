@@ -76,8 +76,10 @@ public class FragmentMenuNormal extends Fragment implements View.OnClickListener
                 }
                 if (((CheckBox)contexView.findViewById(R.id.longthMeasure)).isChecked() | ((CheckBox)contexView.findViewById(R.id.areaMeasure)).isChecked())
                     mActivityMain.touchListener.touchMode = "Measure";
-                else
+                else {
                     mActivityMain.touchListener.touchMode = "Normal";
+                    mActivityMain.measure.Reset();
+                }
                 break;
             case R.id.areaMeasure:
                 if (b) {
@@ -86,8 +88,10 @@ public class FragmentMenuNormal extends Fragment implements View.OnClickListener
                 }
                 if (((CheckBox)contexView.findViewById(R.id.longthMeasure)).isChecked() | ((CheckBox)contexView.findViewById(R.id.areaMeasure)).isChecked())
                     mActivityMain.touchListener.touchMode = "Measure";
-                else
+                else {
                     mActivityMain.touchListener.touchMode = "Normal";
+                    mActivityMain.measure.Reset();
+                }
                 break;
             default:
                 break;
