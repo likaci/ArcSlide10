@@ -52,16 +52,17 @@ public class ActivityMain extends SherlockFragmentActivity{
     View mCallout = null;
 
     String extern = Environment.getExternalStorageDirectory().getPath();
-    String tpkPath     = "/Likaci/DY.tpk";
-    //String tpkPath     = "/Likaci/SanDiego.tpk";
+    String tpkPath     = "/Likaci/BN3857.tpk";
     String locatorPath = "/Likaci/locator/DY.loc";
-    //String networkPath = "/Likaci/data/offlinedata.geodatabase";
-    String networkPath = "/Likaci/data/default.geodatabase";
-    String networkName = "Streets_ND";
+    String networkPath = "/Likaci/data/bn3857.geodatabase";
+    String networkName = "Road_ND";
 
     Measure measure = null;
     TouchListener touchListener;
     SearchTask searchTask;
+
+    FragmentMenuNormal fragmentMenuNormal = new FragmentMenuNormal();
+    FragmentMenuPro fragmentMenuPro = new FragmentMenuPro();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,6 +76,9 @@ public class ActivityMain extends SherlockFragmentActivity{
         //mMapView.addLayer(new ArcGISTiledMapServiceLayer( "http://services.arcgisonline.com/ArcGIS/rest/services/ESRI_StreetMap_World_2D/MapServer"));
 
         mMapView.addLayer(tiledLayer);
+        mMapView.setMaxScale(5000);
+
+
         mMapView.addLayer(mGraphicsLayer);
         mMapView.setMapBackground(0xEFF4F2,0xEFF4F2,0,0);
 
@@ -96,8 +100,6 @@ public class ActivityMain extends SherlockFragmentActivity{
         menu.attachToActivity(this, SlidingMenu.SLIDING_WINDOW);
         //menu.setMenu(R.layout.menu_container);
 
-        final FragmentMenuNormal fragmentMenuNormal = new FragmentMenuNormal();
-        final FragmentMenuPro fragmentMenuPro = new FragmentMenuPro();
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_menu, fragmentMenuNormal).commit();
@@ -116,6 +118,7 @@ public class ActivityMain extends SherlockFragmentActivity{
                 }
             }
         });
+
 
         menu.setMenu(menuContainer);
         /*
@@ -193,20 +196,47 @@ public class ActivityMain extends SherlockFragmentActivity{
         menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                try {
+
+                (new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Geodatabase geodatabase = new Geodatabase(extern + networkPath);
+                            for (GeodatabaseFeatureTable gdbFeatureTable : geodatabase.getGeodatabaseTables()) {
+                                if (gdbFeatureTable.hasGeometry()) {
+                                    final FeatureLayer layer = new FeatureLayer(gdbFeatureTable);
+                                    mMapView.addLayer(layer);
+                                    LinearLayout layerControlContentor =  (LinearLayout)fragmentMenuNormal.getView().findViewById(R.id.layerControlContentor);
+                                    CheckBox checkBox = new CheckBox(layerControlContentor.getContext());
+                                    checkBox.setText(gdbFeatureTable.getTableName());
+                                    checkBox.setChecked(true);
+                                    checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                                        @Override
+                                        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                                            layer.setVisible(b);
+                                        }
+                                    });
+                                    layerControlContentor.addView(checkBox);
+                                }
+                            }
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).run();
+
+/*                try {
+
                     Geodatabase geodatabase = new Geodatabase(extern + networkPath);
                     for (GeodatabaseFeatureTable gdbFeatureTable : geodatabase.getGeodatabaseTables()) {
                         if (gdbFeatureTable.hasGeometry()) {
                             mMapView.addLayer(new FeatureLayer(gdbFeatureTable));
-                            mMapView.zoomToScale(gdbFeatureTable.getExtent().getCenter(),mMapView.getMaxScale());
-                            Log.i("FeatureLayer", gdbFeatureTable.getTableName() + " Load OK");
-                            Log.i("LayerRef", gdbFeatureTable.getSpatialReference().toString());
+                            mMapView.zoomToScale(gdbFeatureTable.getExtent().getCenter(), mMapView.getMaxScale());
                         }
-                        Log.i("mapRef", mMapView.getSpatialReference().toString());
                     }
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
-                }
+                }*/
                 return false;
             }
         });
