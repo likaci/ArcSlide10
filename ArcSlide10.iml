@@ -30,6 +30,7 @@
     <orderEntry type="module" module-name="SlidingMenuLibrary" />
     <orderEntry type="library" name="arcgis-android-api" level="application" />
     <orderEntry type="library" name="android-support-v4" level="project" />
+    <orderEntry type="module" module-name="NineOldAndroids" />
   </component>
 </module>
 

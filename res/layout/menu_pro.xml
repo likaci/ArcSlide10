@@ -19,6 +19,7 @@
                   android:layout_height="wrap_content"/>
     <TableRow android:gravity="center">
         <Button android:text="拍照"
+                android:id="@+id/takePic"
                 android:textSize="20sp"
                 android:gravity="center" android:layout_column="1"/>
         <Button android:text="上传"

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -24,11 +25,9 @@ import com.actionbarsherlock.widget.SearchView;
 import com.esri.android.map.*;
 import com.esri.android.map.GraphicsLayer.RenderingMode;
 import com.esri.android.map.ags.ArcGISLocalTiledLayer;
-import com.esri.android.map.ags.ArcGISTiledMapServiceLayer;
 import com.esri.core.geodatabase.Geodatabase;
 import com.esri.core.geodatabase.GeodatabaseFeatureTable;
 import com.esri.core.geometry.Point;
-import com.esri.core.tasks.geocode.Locator;
 import com.esri.core.tasks.geocode.LocatorFindParameters;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
@@ -45,9 +44,7 @@ public class ActivityMain extends SherlockFragmentActivity{
     MapView mMapView;
     public LocationDisplayManager ldm;
     TiledLayer tiledLayer;
-    //RouteTask mRouteTask = null;
     RoutingTask routingTask;
-    Locator mLocator = null;
     GraphicsLayer mGraphicsLayer = new GraphicsLayer(RenderingMode.DYNAMIC);
     View mCallout = null;
 
@@ -63,6 +60,8 @@ public class ActivityMain extends SherlockFragmentActivity{
 
     FragmentMenuNormal fragmentMenuNormal = new FragmentMenuNormal();
     FragmentMenuPro fragmentMenuPro = new FragmentMenuPro();
+    FragmentTransaction fragmentTransaction;
+    boolean featureLayerLoaded;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,22 +70,11 @@ public class ActivityMain extends SherlockFragmentActivity{
 
         mMapView = (MapView)findViewById(R.id.map);
         tiledLayer = new ArcGISLocalTiledLayer(extern + tpkPath);
-
-        //mMapView.addLayer(new ArcGISTiledMapServiceLayer("http://cache1.arcgisonline.cn/ArcGIS/rest/services/ChinaOnlineStreetColor/MapServer"));
-        //mMapView.addLayer(new ArcGISTiledMapServiceLayer( "http://services.arcgisonline.com/ArcGIS/rest/services/ESRI_StreetMap_World_2D/MapServer"));
-
         mMapView.addLayer(tiledLayer);
         mMapView.setMaxScale(5000);
-
-
-        mMapView.addLayer(mGraphicsLayer);
+        //mMapView.addLayer(new ArcGISTiledMapServiceLayer("http://cache1.arcgisonline.cn/ArcGIS/rest/services/ChinaOnlineStreetColor/MapServer"));
+        //mMapView.addLayer(new ArcGISTiledMapServiceLayer("http://services.arcgisonline.com/ArcGIS/rest/services/ESRI_StreetMap_World_2D/MapServer"));
         mMapView.setMapBackground(0xEFF4F2,0xEFF4F2,0,0);
-
-        /*
-        FragmentContent fragmentContent = new FragmentContent();
-		fragmentContent.setArguments(getIntent().getExtras());
-		getSupportFragmentManager().beginTransaction().add(R.id.fragment_content,fragmentContent).commit();
-		*/
 
         //region 设置SlidingMenu 不替换
         SlidingMenu menu = new SlidingMenu(this);
@@ -98,42 +86,35 @@ public class ActivityMain extends SherlockFragmentActivity{
         menu.setBehindWidth(300);
         menu.setFadeDegree(0.35f);
         menu.attachToActivity(this, SlidingMenu.SLIDING_WINDOW);
-        //menu.setMenu(R.layout.menu_container);
+        //endregion
 
-
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_menu, fragmentMenuNormal).commit();
-
+        //region 替换SlidingMenu
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        //fragmentTransaction.replace(R.id.fragment_menu, fragmentMenuNormal).commit();
+        fragmentTransaction.add(R.id.fragment_menu, fragmentMenuPro);
+        fragmentTransaction.add(R.id.fragment_menu, fragmentMenuNormal).commit();
+        fragmentTransaction.hide(fragmentMenuPro);
+        fragmentTransaction.setCustomAnimations(R.anim.slide_in_right,R.anim.slide_in_right);
         View menuContainer = LayoutInflater.from(getBaseContext()).inflate(R.layout.menu_container,null);
         ((Switch)menuContainer.findViewById(R.id.switchMenuProNormal)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (!b) {
+                    //普通
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.fragment_menu, fragmentMenuNormal).commit();
+                    fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right);
+                    fragmentTransaction.hide(fragmentMenuPro);
+                    fragmentTransaction.show(fragmentMenuNormal).commit();
                 } else {
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.fragment_menu, fragmentMenuPro).commit();
+                    fragmentTransaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
+                    fragmentTransaction.hide(fragmentMenuNormal);
+                    fragmentTransaction.show(fragmentMenuPro).commit();
                 }
             }
         });
-
-
         menu.setMenu(menuContainer);
-        /*
-        menu.setOnOpenListener(new SlidingMenu.OnOpenListener() {
-            @Override
-            public void onOpen() {
-                mMapView.pause();
-            }
-        });
-        menu.setOnClosedListener(new SlidingMenu.OnClosedListener() {
-            @Override
-            public void onClosed() {
-                mMapView.unpause();
-            }
-        });*/
         //endregion
 
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -147,9 +128,27 @@ public class ActivityMain extends SherlockFragmentActivity{
         touchListener = new TouchListener(ActivityMain.this,this,mMapView);
         mMapView.setOnTouchListener(touchListener);
 
+        (new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Geodatabase geodatabase = new Geodatabase(extern + networkPath);
+                    for (GeodatabaseFeatureTable gdbFeatureTable : geodatabase.getGeodatabaseTables()) {
+                        if (gdbFeatureTable.hasGeometry()) {
+                            final FeatureLayer layer = new FeatureLayer(gdbFeatureTable);
+                            layer.setEnableLabels(true);
+                            layer.setSelectionColor(Color.YELLOW);
+                            mMapView.addLayer(layer);
+                        }
+                    }
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).run();
+
+        mMapView.addLayer(mGraphicsLayer);
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -178,25 +177,11 @@ public class ActivityMain extends SherlockFragmentActivity{
         MenuItem menuItemSearch = menu.findItem(R.id.menu_search);
         menuItemSearch.setActionView(searchView);
 
-
-
-        MenuItem menuItem = menu.add("AddOnline");
+        MenuItem menuItem = menu.add("Add");
         menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                mMapView.addLayer(new ArcGISTiledMapServiceLayer("http://cache1.arcgisonline.cn/ArcGIS/rest/services/ChinaOnlineStreetColor/MapServer"));
-                return false;
-            }
-        });
-
-
-        menuItem = menu.add("Add");
-        menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-
                 (new Runnable() {
                     @Override
                     public void run() {
@@ -224,19 +209,6 @@ public class ActivityMain extends SherlockFragmentActivity{
                         }
                     }
                 }).run();
-
-/*                try {
-
-                    Geodatabase geodatabase = new Geodatabase(extern + networkPath);
-                    for (GeodatabaseFeatureTable gdbFeatureTable : geodatabase.getGeodatabaseTables()) {
-                        if (gdbFeatureTable.hasGeometry()) {
-                            mMapView.addLayer(new FeatureLayer(gdbFeatureTable));
-                            mMapView.zoomToScale(gdbFeatureTable.getExtent().getCenter(), mMapView.getMaxScale());
-                        }
-                    }
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }*/
                 return false;
             }
         });
@@ -247,7 +219,6 @@ public class ActivityMain extends SherlockFragmentActivity{
         menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 //String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
                 //File picture = new File(Environment.getExternalStorageDirectory().getPath() + "/" + timeStamp + ".jpg");
@@ -422,7 +393,32 @@ public class ActivityMain extends SherlockFragmentActivity{
     }
     @Override
     protected void onResume() {
-        //ee
+        (new Runnable() {
+            @Override
+            public void run() {
+                LinearLayout layerControlContentor =  (LinearLayout)fragmentMenuNormal.getView().findViewById(R.id.layerControlContentor);
+                layerControlContentor.removeAllViews();
+                for (final Layer layer : mMapView.getLayers()) {
+                    try {
+                        if (layer.getName().length()<1)
+                            return;
+                        CheckBox checkBox = new CheckBox(layerControlContentor.getContext());
+                        checkBox.setText(layer.getName());
+                        checkBox.setChecked(layer.isVisible());
+                        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                            @Override
+                            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                                layer.setVisible(b);
+                            }
+                        });
+                        layerControlContentor.addView(checkBox);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).run();
+
         super.onResume();
         mMapView.unpause();
     }
@@ -445,6 +441,7 @@ public class ActivityMain extends SherlockFragmentActivity{
         });
         mMapView.getCallout().show(location, mCallout);
         mMapView.getCallout().setMaxWidth(700);
+        mMapView.getCallout().setMaxHeight(900);
     }
 
     public void popToast(final String message, final boolean show) {

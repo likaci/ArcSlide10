@@ -70,6 +70,7 @@ public class SearchTask {
         fragmentSearchInfo.infoName = name;
         fragmentSearchInfo.point = point;
         FragmentTransaction fragmentTransaction = activityMain.getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_top);
         fragmentTransaction.replace(R.id.fragment_SearchInfo, fragmentSearchInfo).commit();
     }
 

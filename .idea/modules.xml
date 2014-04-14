@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/../Android.iml" filepath="$PROJECT_DIR$/../Android.iml" />
       <module fileurl="file://$PROJECT_DIR$/../Android.iml" filepath="$PROJECT_DIR$/../Android.iml" />
       <module fileurl="file://$PROJECT_DIR$/ArcSlide10.iml" filepath="$PROJECT_DIR$/ArcSlide10.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../NineOldAndroids/NineOldAndroids.iml" filepath="$PROJECT_DIR$/../NineOldAndroids/NineOldAndroids.iml" />
       <module fileurl="file://$PROJECT_DIR$/../SlidingMenuExample/SlidingMenuExample.iml" filepath="$PROJECT_DIR$/../SlidingMenuExample/SlidingMenuExample.iml" />
       <module fileurl="file://$PROJECT_DIR$/../SlidingMenuLibrary/SlidingMenuLibrary.iml" filepath="$PROJECT_DIR$/../SlidingMenuLibrary/SlidingMenuLibrary.iml" />
     </modules>

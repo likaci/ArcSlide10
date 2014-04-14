@@ -23,34 +23,17 @@ public class FragmentMenuPro extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View contextView = inflater.inflate(R.layout.menu_pro, container, false);
-/*        LinearLayout layout = (LinearLayout) contextView.findViewById(R.id.listMenu_layout);
+        LinearLayout layout = (LinearLayout) contextView.findViewById(R.id.listMenu_layout);
         for (int i = 0; i < layout.getChildCount(); i++)
-            layout.getChildAt(i).setOnClickListener(this);*/
+            layout.getChildAt(i).setOnClickListener(this);
         return contextView;
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.cbLoaction:
-                if (((CheckBox)mActivityMain.findViewById(R.id.cbLoaction)).isChecked())
-                    mActivityMain.ldm.start();
-                else
-                    mActivityMain.ldm.stop();
+            case R.id.takePic:
                 break;
-            /*
-            case R.id.cbIsMeasure:
-                if (((CheckBox)mActivityMain.findViewById(R.id.cbIsMeasure)).isChecked()) {
-                    mActivityMain.touchListener.touchMode = "Measure";
-                    ((RadioGroup) contextView.findViewById(R.id.rgMeasure)).setClickable(true);
-                }
-                else {
-                    mActivityMain.touchListener.touchMode = "Normal";
-                    ((RadioGroup) contextView.findViewById(R.id.rgMeasure)).clearCheck();
-                    ((RadioGroup) contextView.findViewById(R.id.rgMeasure)).setClickable(false);
-                }
-                break;
-                */
             default:
                 break;
         }
