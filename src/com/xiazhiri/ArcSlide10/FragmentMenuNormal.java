@@ -59,7 +59,6 @@ public class FragmentMenuNormal extends Fragment implements View.OnClickListener
         }
     }
 
-
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
         switch (compoundButton.getId()){

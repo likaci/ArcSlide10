@@ -16,7 +16,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
@@ -24,11 +23,12 @@ import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.widget.SearchView;
 import com.esri.android.map.*;
 import com.esri.android.map.GraphicsLayer.RenderingMode;
+import com.esri.android.map.ags.ArcGISFeatureLayer;
 import com.esri.android.map.ags.ArcGISLocalTiledLayer;
 import com.esri.core.geodatabase.Geodatabase;
 import com.esri.core.geodatabase.GeodatabaseFeatureTable;
 import com.esri.core.geometry.Point;
-import com.esri.core.tasks.geocode.LocatorFindParameters;
+import com.esri.core.tasks.query.QueryParameters;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 import java.io.*;
@@ -158,14 +158,26 @@ public class ActivityMain extends SherlockFragmentActivity{
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-
+                /*
                 LocatorFindParameters findParams = new LocatorFindParameters(query);
                 findParams.setMaxLocations(10);
                 findParams.setOutSR(mMapView.getSpatialReference());
                 searchTask.Search(findParams);
                 ((InputMethodManager)getSystemService(INPUT_METHOD_SERVICE))
                         .hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
-                return false;
+                */
+
+                for (Layer layer : mMapView.getLayers()) {
+                    if (layer instanceof FeatureLayer) {
+                        ((FeatureLayer) layer).setSelectionColor(Color.CYAN);
+                        QueryParameters queryParameters = new QueryParameters();
+                        queryParameters.setWhere("NAME like '%" + query + "%'");
+                        ((FeatureLayer) layer).selectFeatures(queryParameters, ArcGISFeatureLayer.SELECTION_METHOD.NEW,null);
+                    }
+                }
+
+
+                return true;
             }
 
             @Override
@@ -423,7 +435,6 @@ public class ActivityMain extends SherlockFragmentActivity{
         mMapView.unpause();
     }
     //endregion
-
     public void showCallout(String text, Point location) {
 
         if (mCallout == null) {
