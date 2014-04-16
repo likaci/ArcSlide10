@@ -14,7 +14,9 @@
   </component>
   <component name="FacetManager">
     <facet type="android" name="Android">
-      <configuration />
+      <configuration>
+        <option name="UPDATE_PROPERTY_FILES" value="true" />
+      </configuration>
     </facet>
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="false">
@@ -26,11 +28,10 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 19 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="ActionBarSherlock" />
     <orderEntry type="module" module-name="SlidingMenuLibrary" />
+    <orderEntry type="module" module-name="ActionBarSherlock" />
     <orderEntry type="library" name="arcgis-android-api" level="application" />
     <orderEntry type="library" name="android-support-v4" level="project" />
-    <orderEntry type="module" module-name="NineOldAndroids" />
   </component>
 </module>
 
