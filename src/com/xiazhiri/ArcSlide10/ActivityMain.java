@@ -128,6 +128,7 @@ public class ActivityMain extends SherlockFragmentActivity{
         touchListener = new TouchListener(ActivityMain.this,this,mMapView);
         mMapView.setOnTouchListener(touchListener);
 
+        //region 加载矢量底图
         (new Runnable() {
             @Override
             public void run() {
@@ -146,6 +147,7 @@ public class ActivityMain extends SherlockFragmentActivity{
                 }
             }
         }).run();
+        //endregion
 
         mMapView.addLayer(mGraphicsLayer);
     }
@@ -469,7 +471,7 @@ public class ActivityMain extends SherlockFragmentActivity{
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    searchTask = new SearchTask(ActivityMain.this, extern + locatorPath);
+                    searchTask = new SearchTask(ActivityMain.this);
                     //mLocator = Locator.createLocalLocator(extern + locatorPath);
                     //mRouteTask = RouteTask.createLocalRouteTask(extern + networkPath, networkName);
                     routingTask = new RoutingTask(ActivityMain.this,extern + networkPath,networkName);

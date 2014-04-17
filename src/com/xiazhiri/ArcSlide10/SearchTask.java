@@ -1,22 +1,41 @@
 package com.xiazhiri.ArcSlide10;
 
+import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.TextView;
+import com.esri.android.map.FeatureLayer;
 import com.esri.android.map.GraphicsLayer;
+import com.esri.android.map.Layer;
+import com.esri.android.map.MapView;
+import com.esri.android.map.ags.ArcGISFeatureLayer;
+import com.esri.core.geometry.Envelope;
 import com.esri.core.geometry.Point;
-import com.esri.core.geometry.SpatialReference;
+import com.esri.core.map.Feature;
 import com.esri.core.map.Graphic;
 import com.esri.core.symbol.PictureMarkerSymbol;
+import com.esri.core.symbol.SimpleMarkerSymbol;
 import com.esri.core.tasks.geocode.Locator;
 import com.esri.core.tasks.geocode.LocatorFindParameters;
 import com.esri.core.tasks.geocode.LocatorGeocodeResult;
-import com.esri.core.tasks.geocode.LocatorReverseGeocodeResult;
+import com.esri.core.tasks.na.StopGraphic;
+import com.esri.core.tasks.query.QueryParameters;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * 异步搜索
+ * 搜索
  */
 public class SearchTask {
     GraphicsLayer graphicsLayer;
@@ -24,51 +43,61 @@ public class SearchTask {
 
     ActivityMain activityMain;
     Locator locator;
-
-    public SearchTask(ActivityMain activityMain, String locatorPath){
+    //Set<Feature> features;
+    List<Feature> features;
+    FragmentSearchInfo fragmentSearchInfo;
+    MapView mapView;
+    public SearchTask(ActivityMain activityMain){
+        features = new ArrayList<Feature>();
         this.activityMain = activityMain;
-        try {
-            locator = Locator.createLocalLocator(locatorPath);
-        } catch (Exception e) {
-            activityMain.popToast("加载定位器失败",true);
-            e.printStackTrace();
-        }
         graphicsLayer = new GraphicsLayer();
         activityMain.mMapView.addLayer(graphicsLayer);
+        this.mapView = activityMain.mMapView;
+        fragmentSearchInfo = new FragmentSearchInfo();
     }
 
     //地理编码 搜索按钮
-    public void Search(LocatorFindParameters locatorFindParameters){
-        Searcher searcher = new Searcher();
-        searcher.execute(locatorFindParameters);
+    public void Search(String name){
+        features.clear();
+        for (Layer layer : mapView.getLayers()) {
+            if (layer instanceof FeatureLayer) {
+                ((FeatureLayer) layer).setSelectionColor(Color.CYAN);
+                QueryParameters queryParameters = new QueryParameters();
+                queryParameters.setWhere("NAME like '%" + name + "%'");
+                ((FeatureLayer) layer).selectFeatures(queryParameters, ArcGISFeatureLayer.SELECTION_METHOD.NEW,null);
+            }
+        }
+        if (features.isEmpty())
+            return;
     }
 
     //反地理编码 长按屏幕查询
-    public void Search(Point point){
-        SpatialReference mapRef = activityMain.mMapView.getSpatialReference();
-        LocatorReverseGeocodeResult result = null;
-        try {
-            //result = mLocator.reverseGeocode(mapPoint, 5000, mapRef, mapRef);
-            result = locator.reverseGeocode(point, 5000, mapRef, mapRef);
-        } catch (Exception e) {
-            e.printStackTrace();
+    public void Search(Point screenPoint){
+        features.clear();
+        Point mapPoint = mapView.toMapPoint(screenPoint);
+        Map<String,Object> graphicAttribute = new HashMap<String, Object>();
+        graphicAttribute.put("NAME","地图选点");
+        Graphic graphic = new Graphic(mapPoint, new SimpleMarkerSymbol(Color.RED,2, SimpleMarkerSymbol.STYLE.CIRCLE), graphicAttribute);
+        features.add(graphic);
+        for (Layer layer : activityMain.mMapView.getLayers()) {
+            if (layer instanceof FeatureLayer) {
+                try {
+                    FeatureLayer featureLayer = (FeatureLayer)layer;
+                    Feature feature = featureLayer.getFeature(featureLayer.getFeatureIDs((float)screenPoint.getX(), (float)screenPoint.getY(), 5)[0]);
+                    features.add(feature);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         }
-        StringBuilder address = new StringBuilder();
-        if (result != null && result.getAddressFields() != null) {
-            Map<String, String> addressFields = result.getAddressFields();
-            address.append(String.format("%s", addressFields.get("SingleKey")));
-            setInfoAndMark(point,address.toString());
-        }
+        if (features.isEmpty())
+            return;
+        setInfo();
     }
 
-    public void setInfoAndMark(Point point, String name) {
-        graphicsLayer.removeAll();
-        Graphic graphic = new Graphic(point, new PictureMarkerSymbol(activityMain.getResources().getDrawable(R.drawable.icon_openmap_mark)),3);
-        graphicsLayer.addGraphic(graphic);
-
-        FragmentSearchInfo fragmentSearchInfo = new FragmentSearchInfo();
-        fragmentSearchInfo.infoName = name;
-        fragmentSearchInfo.point = point;
+    public void setInfo() {
+        fragmentSearchInfo = new FragmentSearchInfo();
+        fragmentSearchInfo.features = features;
         FragmentTransaction fragmentTransaction = activityMain.getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_top);
         fragmentTransaction.replace(R.id.fragment_SearchInfo, fragmentSearchInfo).commit();
@@ -84,8 +113,7 @@ public class SearchTask {
 
                 Point point = new Point(geocodeResult.getLocation().getX(),geocodeResult.getLocation().getY());
                 String pointName = geocodeResult.getAddress();
-
-                setInfoAndMark(point,pointName);
+                //setInfoAndMark(point,pointName);
             }
         }
         @Override
@@ -97,6 +125,95 @@ public class SearchTask {
                 e.printStackTrace();
             }
             return results;
+        }
+    }
+
+    class FragmentSearchInfo extends Fragment {
+
+        ActivityMain activityMain;
+        FrameLayout mFrameLayout;
+        String infoName;
+        Point point;
+        Feature feature;
+        List<Feature> features;
+        final String TAG = "FragmentSearchInfo";
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setRetainInstance(true);
+            activityMain = (ActivityMain)getActivity();
+            mFrameLayout = (FrameLayout)activityMain.findViewById(R.id.fragment_content);
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            View contextView = inflater.inflate(R.layout.fragment_search_info, container, false);
+            //((TextView)contextView.findViewById(R.id.SearchInfoName)).setText(infoName);
+            //((TextView)contextView.findViewById(R.id.SearchInfoCoord)).setText((int)point.getX() + "," + (int)point.getY());
+            ((Button)contextView.findViewById(R.id.SearchInfoAddToRoute)).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Envelope envelope = new Envelope();
+                    feature.getGeometry().queryEnvelope(envelope);
+                    activityMain.routingTask.AddPoint(new StopGraphic(envelope.getCenter()),feature.getAttributes().get("NAME").toString());
+                }
+            });
+
+            ((Button)contextView.findViewById(R.id.SearchInfoPreItem)).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showItemPre();
+                }
+            });
+
+            ((Button)contextView.findViewById(R.id.SearchInfoNextItem)).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showItemNext();
+                }
+            });
+            return contextView;
+        }
+
+        @Override
+        public void onResume() {
+            super.onResume();
+            showItem(features.get(0));
+        }
+
+        void showItem(Feature feature) {
+            try {
+                this.feature = feature;
+                ((TextView) (getView().findViewById(R.id.SearchInfoName))).setText(feature.getAttributes().get("NAME").toString());
+                Envelope envelope = new Envelope();
+                feature.getGeometry().queryEnvelope(envelope);
+                ((TextView) (getView().findViewById(R.id.SearchInfoCoord))).setText(envelope.getCenterX() + "," + envelope.getCenterY());
+
+                graphicsLayer.removeAll();
+                Graphic graphic = new Graphic(envelope.getCenter(), new PictureMarkerSymbol(activityMain.getResources().getDrawable(R.drawable.icon_openmap_mark)),3);
+                graphicsLayer.addGraphic(graphic);
+
+                getView().findViewById(R.id.SearchInfoNextItem).setClickable(true);
+                getView().findViewById(R.id.SearchInfoPreItem).setClickable(true);
+
+                if (features.indexOf(feature) == (features.size()-1))
+                    getView().findViewById(R.id.SearchInfoNextItem).setClickable(false);
+                if (features.indexOf(feature) == 0) {
+                    getView().findViewById(R.id.SearchInfoPreItem).setClickable(false);
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.e(TAG, "设置Item错误");
+            }
+        }
+
+        void showItemPre() {
+            showItem(features.get(features.indexOf(feature)-1));
+        }
+
+        void showItemNext() {
+            showItem(features.get(features.indexOf(feature)+1));
         }
     }
 }
