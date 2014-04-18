@@ -11,11 +11,14 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.*;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
@@ -30,13 +33,16 @@ import com.esri.core.geodatabase.GeodatabaseFeatureTable;
 import com.esri.core.geometry.Point;
 import com.esri.core.tasks.query.QueryParameters;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ActivityMain extends SherlockFragmentActivity{
@@ -62,6 +68,7 @@ public class ActivityMain extends SherlockFragmentActivity{
     FragmentMenuPro fragmentMenuPro = new FragmentMenuPro();
     FragmentTransaction fragmentTransaction;
     boolean featureLayerLoaded;
+    SlidingUpPanelLayout slidingUpPanel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -150,6 +157,44 @@ public class ActivityMain extends SherlockFragmentActivity{
         //endregion
 
         mMapView.addLayer(mGraphicsLayer);
+
+        slidingUpPanel = (SlidingUpPanelLayout)findViewById(R.id.sliding_layout);
+        slidingUpPanel.setEnableDragViewTouchEvents(true);
+
+        LayoutInflater layoutInflater = getLayoutInflater().from(this);
+        View view1 = layoutInflater.inflate(R.layout.page1, null);
+        View view2 = layoutInflater.inflate(R.layout.page1, null);
+        View view3 = layoutInflater.inflate(R.layout.page1,null);
+        final List<View> viewList = new ArrayList<View>();
+        viewList.add(view1);
+        viewList.add(view2);
+        viewList.add(view3);
+        ViewPager viewPager = (ViewPager)findViewById(R.id.viewPager);
+        PagerAdapter pagerAdapter = new PagerAdapter() {
+            @Override
+            public int getCount() {
+                return viewList.size();
+            }
+
+            @Override
+            public boolean isViewFromObject(View view, Object o) {
+                return view == o;
+            }
+
+            @Override
+            public Object instantiateItem(ViewGroup viewGroup, int position) {
+                ((ViewPager)viewGroup).addView(viewList.get(position));
+                return viewList.get(position);
+            }
+
+            @Override
+            public void destroyItem(ViewGroup container, int position, Object object) {
+                ((ViewPager)container).removeView(viewList.get(position));
+            }
+
+        };
+        viewPager.setAdapter(pagerAdapter);
+
     }
 
     @Override
@@ -243,6 +288,21 @@ public class ActivityMain extends SherlockFragmentActivity{
                 return false;
             }
         });
+
+
+        menuItem = menu.add("ShowPanel");
+        menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                slidingUpPanel.showPane();
+                slidingUpPanel.setPanelHeight(100);
+                slidingUpPanel.setAnchorPoint((float)0.5);
+                //slidingUpPanel.expandPane();
+                return false;
+            }
+        });
+
 
         return super.onCreateOptionsMenu(menu);
     }

@@ -32,6 +32,7 @@
     <orderEntry type="module" module-name="ActionBarSherlock" />
     <orderEntry type="library" name="arcgis-android-api" level="application" />
     <orderEntry type="library" name="android-support-v4" level="project" />
+    <orderEntry type="module" module-name="AndroidSlidingUpPanel" />
   </component>
 </module>
 

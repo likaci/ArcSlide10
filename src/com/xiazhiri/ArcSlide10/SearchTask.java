@@ -172,6 +172,18 @@ public class SearchTask {
                     showItemNext();
                 }
             });
+
+            ((Button)contextView.findViewById(R.id.ShowProductive)).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    FragmentProductiveInfo fragmentProductiveInfo = new FragmentProductiveInfo();
+                    fragmentProductiveInfo.feature = feature;
+                    FragmentTransaction fragmentTransaction = activityMain.getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_top);
+                    fragmentTransaction.replace(R.id.fragment_ProductiveInfo,fragmentProductiveInfo).commit();
+                }
+            });
+
             return contextView;
         }
 
@@ -187,19 +199,25 @@ public class SearchTask {
                 ((TextView) (getView().findViewById(R.id.SearchInfoName))).setText(feature.getAttributes().get("NAME").toString());
                 Envelope envelope = new Envelope();
                 feature.getGeometry().queryEnvelope(envelope);
-                ((TextView) (getView().findViewById(R.id.SearchInfoCoord))).setText(envelope.getCenterX() + "," + envelope.getCenterY());
+                ((TextView) (getView().findViewById(R.id.SearchInfoCoord))).setText(String.format("%.2f,%.2f",
+                        envelope.getCenterX(),envelope.getCenterY()));
 
                 graphicsLayer.removeAll();
                 Graphic graphic = new Graphic(envelope.getCenter(), new PictureMarkerSymbol(activityMain.getResources().getDrawable(R.drawable.icon_openmap_mark)),3);
                 graphicsLayer.addGraphic(graphic);
 
                 getView().findViewById(R.id.SearchInfoNextItem).setClickable(true);
+                ((Button)getView().findViewById(R.id.SearchInfoNextItem)).setBackgroundResource(R.drawable.arrow_right_on);
                 getView().findViewById(R.id.SearchInfoPreItem).setClickable(true);
+                ((Button)getView().findViewById(R.id.SearchInfoPreItem)).setBackgroundResource(R.drawable.arrow_left_on);
 
-                if (features.indexOf(feature) == (features.size()-1))
+                if (features.indexOf(feature) == (features.size()-1)){
                     getView().findViewById(R.id.SearchInfoNextItem).setClickable(false);
+                    ((Button)getView().findViewById(R.id.SearchInfoNextItem)).setBackgroundResource(R.drawable.arrow_right_off);
+                }
                 if (features.indexOf(feature) == 0) {
                     getView().findViewById(R.id.SearchInfoPreItem).setClickable(false);
+                    ((Button)getView().findViewById(R.id.SearchInfoPreItem)).setBackgroundResource(R.drawable.arrow_left_off);
                 }
 
             } catch (Exception e) {
@@ -209,11 +227,19 @@ public class SearchTask {
         }
 
         void showItemPre() {
-            showItem(features.get(features.indexOf(feature)-1));
+            try {
+                showItem(features.get(features.indexOf(feature)-1));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         void showItemNext() {
-            showItem(features.get(features.indexOf(feature)+1));
+            try {
+                showItem(features.get(features.indexOf(feature)+1));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }

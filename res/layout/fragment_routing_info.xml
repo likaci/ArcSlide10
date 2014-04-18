@@ -22,4 +22,6 @@
     <View android:layout_width="1px" android:layout_height="fill_parent" android:background="#ffbbbcbd"/>
     <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/RoutingInfoFindRoute" android:text="计算"
             />
+    <Spinner android:layout_width="fill_parent" android:layout_height="fill_parent" android:id="@+id/RoutingInfoSpinner">
+    </Spinner>
 </LinearLayout>
