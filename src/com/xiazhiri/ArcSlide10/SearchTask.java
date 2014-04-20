@@ -5,6 +5,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,6 +49,9 @@ public class SearchTask {
     List<Feature> features;
     FragmentSearchInfo fragmentSearchInfo;
     MapView mapView;
+    //--
+    ArrayList<View> views;
+
     public SearchTask(ActivityMain activityMain){
         features = new ArrayList<Feature>();
         this.activityMain = activityMain;
@@ -93,6 +98,33 @@ public class SearchTask {
         if (features.isEmpty())
             return;
         setInfo();
+        views = createViews(features);
+        activityMain.viewPager.setAdapter(new PagerAdapter() {
+            @Override
+            public int getCount() {
+                return views.size();
+            }
+
+            @Override
+            public boolean isViewFromObject(View view, Object o) {
+                return view == o;
+            }
+
+            @Override
+            public Object instantiateItem(ViewGroup viewGroup, int position) {
+                ((ViewPager) viewGroup).addView(views.get(position));
+                return views.get(position);
+            }
+
+            @Override
+            public void destroyItem(ViewGroup container, int position, Object object) {
+                try {
+                    ((ViewPager)container).removeView(views.get(position));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     public void setInfo() {
@@ -129,7 +161,6 @@ public class SearchTask {
     }
 
     class FragmentSearchInfo extends Fragment {
-
         ActivityMain activityMain;
         FrameLayout mFrameLayout;
         String infoName;
@@ -241,6 +272,46 @@ public class SearchTask {
                 e.printStackTrace();
             }
         }
+    }
+
+    class myPagerAdapter extends PagerAdapter{
+        @Override
+        public int getCount() {
+            return views.size();
+        }
+
+        @Override
+        public boolean isViewFromObject(View view, Object o) {
+            return view == o;
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup viewGroup, int position) {
+            ((ViewPager)viewGroup).addView(views.get(position));
+            return views.get(position);
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            ((ViewPager)container).removeView(views.get(position));
+        }
+    }
+    ArrayList<View> createViews(List<Feature> features) {
+        ArrayList<View> views = new ArrayList<View>();
+        for (Feature feature : features) {
+            View view = createView(R.layout.search_info);
+            setViewInfo(view, feature);
+            views.add(view);
+        }
+        return views;
+    }
+    void setViewInfo(View view, Feature feature) {
+        ((TextView)view.findViewById(R.id.SearchInfoName)).setText(feature.getAttributes().get("NAME").toString());
+    }
+    View createView(int viewId) {
+        LayoutInflater layoutInflater = LayoutInflater.from(this.activityMain.getBaseContext());
+        View view = layoutInflater.inflate(viewId,null);
+        return view;
     }
 }
 

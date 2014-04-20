@@ -69,6 +69,7 @@ public class ActivityMain extends SherlockFragmentActivity{
     FragmentTransaction fragmentTransaction;
     boolean featureLayerLoaded;
     SlidingUpPanelLayout slidingUpPanel;
+    ViewPager viewPager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -162,14 +163,15 @@ public class ActivityMain extends SherlockFragmentActivity{
         slidingUpPanel.setEnableDragViewTouchEvents(true);
 
         LayoutInflater layoutInflater = getLayoutInflater().from(this);
-        View view1 = layoutInflater.inflate(R.layout.page1, null);
+        View view1 = new View(getBaseContext());
+        view1.setBackgroundColor(Color.RED);
         View view2 = layoutInflater.inflate(R.layout.page1, null);
         View view3 = layoutInflater.inflate(R.layout.page1,null);
         final List<View> viewList = new ArrayList<View>();
         viewList.add(view1);
         viewList.add(view2);
         viewList.add(view3);
-        ViewPager viewPager = (ViewPager)findViewById(R.id.viewPager);
+        viewPager = (ViewPager)findViewById(R.id.viewPager);
         PagerAdapter pagerAdapter = new PagerAdapter() {
             @Override
             public int getCount() {

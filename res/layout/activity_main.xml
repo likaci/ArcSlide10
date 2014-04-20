@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<FrameLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        xmlns:android="http://schemas.android.com/apk/res/android">
+        android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <com.sothree.slidinguppanel.SlidingUpPanelLayout
             xmlns:sothree="http://schemas.android.com/apk/res-auto"
@@ -15,34 +14,22 @@
             sothree:overlay="true"
             >
 
-        <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
-                        android:layout_width="fill_parent"
+        <!--Map-->
+        <RelativeLayout android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
-                        android:orientation="vertical"
-                        tools:context=".ActivityMain"
-                        xmlns:android="http://schemas.android.com/apk/res/android"
-                >
+                        android:orientation="vertical" >
             <com.esri.android.map.MapView
                     android:id="@+id/map"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:layout_alignParentTop="true"
-                    android:layout_alignParentBottom="true"
-                    >
+                    android:layout_alignParentBottom="true" >
             </com.esri.android.map.MapView>
-
-            <FrameLayout android:layout_width="wrap_content" android:layout_height="wrap_content">
-                <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                           android:src="@drawable/ic_launcher"
-                        />
-            </FrameLayout>
-
             <LinearLayout android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
                           android:layout_alignParentTop="true"
                           android:layout_centerHorizontal="true"
-                          android:layout_marginTop="8dp"
-                    >
+                          android:layout_marginTop="8dp" >
                 <FrameLayout
                         android:id="@+id/fragment_ProductiveInfo"
                         android:layout_width="wrap_content"
@@ -52,7 +39,6 @@
                         >
                 </FrameLayout>
             </LinearLayout>
-
             <LinearLayout android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
                           android:layout_alignParentBottom="true"
@@ -77,13 +63,25 @@
                 </FrameLayout>
             </LinearLayout>
         </RelativeLayout>
-        <LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent" android:orientation="vertical"
-                      android:background="#ffffea00"
-                >
-            <android.support.v4.view.ViewPager android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/viewPager"
-                                               android:background="#ff3f96ff"
+
+        <!--Sliding-->
+        <LinearLayout android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="vertical"
+                      android:gravity="top"
+                      android:layout_gravity="top"
+                      android:background="#ffff0042"
+                      >
+            <android.support.v4.view.ViewPager
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top"
+                    android:id="@+id/viewPager"
+                    android:background="#ffffec11"
                     >
             </android.support.v4.view.ViewPager>
         </LinearLayout>
+
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>
-</RelativeLayout>
+
+</FrameLayout>
