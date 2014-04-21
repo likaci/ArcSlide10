@@ -70,14 +70,13 @@
                       android:orientation="vertical"
                       android:gravity="top"
                       android:layout_gravity="top"
-                      android:background="#ffff0042"
+                      android:background="#ffe9eaeb"
                       >
             <android.support.v4.view.ViewPager
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="top"
                     android:id="@+id/viewPager"
-                    android:background="#ffffec11"
                     >
             </android.support.v4.view.ViewPager>
         </LinearLayout>

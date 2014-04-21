@@ -1,2 +1,4 @@
-*.apk
-\bin
+ArcSlide10.unaligned.apk
+*.swp
+*.class
+/bin
