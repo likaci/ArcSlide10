@@ -131,7 +131,6 @@ public class ActivityMain extends SherlockFragmentActivity{
         ldm = mMapView.getLocationDisplayManager();
         //ldm.setLocationListener(locationListener);
 
-        initializeRoutingAndGeocoding();
 
         touchListener = new TouchListener(ActivityMain.this,this,mMapView);
         mMapView.setOnTouchListener(touchListener);
@@ -196,6 +195,8 @@ public class ActivityMain extends SherlockFragmentActivity{
 
         };
         viewPager.setAdapter(pagerAdapter);
+
+        initializeRoutingAndGeocoding();
 
     }
 
