@@ -2,7 +2,6 @@
 <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android">
-
     <com.sothree.slidinguppanel.SlidingUpPanelLayout
             xmlns:sothree="http://schemas.android.com/apk/res-auto"
             android:id="@+id/sliding_layout"
@@ -10,58 +9,36 @@
             android:layout_height="match_parent"
             android:gravity="bottom"
             sothree:panelHeight="0dp"
+            sothree:paralaxOffset="0dp"
             sothree:shadowHeight="4dp"
-            sothree:overlay="true"
-            >
+            sothree:overlay="true" >
 
         <!--Map-->
         <RelativeLayout android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:orientation="vertical" >
-            <com.esri.android.map.MapView
-                    android:id="@+id/map"
+            <com.sothree.slidinguppanel.SlidingUpPanelLayout
+                    xmlns:sothree="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/sliding_layout2"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentBottom="true" >
-            </com.esri.android.map.MapView>
-            <LinearLayout android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:layout_alignParentTop="true"
-                          android:layout_centerHorizontal="true"
-                          android:layout_marginTop="8dp" >
-                <FrameLayout
-                        android:id="@+id/fragment_ProductiveInfo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/background"
-                        android:layout_margin="4dp"
+                    android:gravity="top"
+                    sothree:panelHeight="0dp"
+                    sothree:shadowHeight="4dp"
+                    sothree:overlay="true" >
+                <com.esri.android.map.MapView
+                        android:id="@+id/map"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentBottom="true" >
+                </com.esri.android.map.MapView>
+                <FrameLayout android:layout_width="fill_parent" android:layout_height="70dp"
+                             android:background="#fff"
                         >
                 </FrameLayout>
-            </LinearLayout>
-            <LinearLayout android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:layout_alignParentBottom="true"
-                          android:layout_centerHorizontal="true"
-                          android:layout_marginBottom="8dp"
-                    >
-                <FrameLayout
-                        android:id="@+id/fragment_SearchInfo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/background"
-                        android:layout_margin="4dp"
-                        >
-                </FrameLayout>
-                <FrameLayout
-                        android:id="@+id/fragment_RoutingInfo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/background"
-                        android:layout_margin="4dp"
-                        >
-                </FrameLayout>
-            </LinearLayout>
+            </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+
         </RelativeLayout>
 
         <!--Sliding-->
@@ -71,9 +48,7 @@
                       android:gravity="top"
                       android:layout_gravity="top"
                       android:background="#ffe9eaeb"
-                      android:paddingLeft="5dp"
-                      android:paddingRight="5dp"
-                      >
+                >
             <android.support.v4.view.ViewPager
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -84,5 +59,4 @@
         </LinearLayout>
 
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>
-
 </FrameLayout>

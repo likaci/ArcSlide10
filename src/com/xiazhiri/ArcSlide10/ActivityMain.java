@@ -1,6 +1,5 @@
 package com.xiazhiri.ArcSlide10;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -11,14 +10,11 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.*;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
@@ -40,9 +36,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class ActivityMain extends SherlockFragmentActivity{
@@ -67,7 +60,6 @@ public class ActivityMain extends SherlockFragmentActivity{
     FragmentMenuNormal fragmentMenuNormal = new FragmentMenuNormal();
     FragmentMenuPro fragmentMenuPro = new FragmentMenuPro();
     FragmentTransaction fragmentTransaction;
-    boolean featureLayerLoaded;
     SlidingUpPanelLayout slidingUpPanel;
     ViewPager viewPager;
 
@@ -76,14 +68,62 @@ public class ActivityMain extends SherlockFragmentActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initBaseMap();
+        initFeatureLayer();
+        viewPager = (ViewPager)findViewById(R.id.viewPager);
+        initSlidingUpPanel();
+        initSearchRouting();
+        initSlideMenu();
+
+        //设置定位器
+        ldm = mMapView.getLocationDisplayManager();
+        //ldm.setLocationListener(locationListener);
+
+        touchListener = new TouchListener(ActivityMain.this,this,mMapView);
+        mMapView.setOnTouchListener(touchListener);
+    }
+
+    void initBaseMap() {
         mMapView = (MapView)findViewById(R.id.map);
         tiledLayer = new ArcGISLocalTiledLayer(extern + tpkPath);
         mMapView.addLayer(tiledLayer);
         mMapView.setMaxScale(5000);
         //mMapView.addLayer(new ArcGISTiledMapServiceLayer("http://cache1.arcgisonline.cn/ArcGIS/rest/services/ChinaOnlineStreetColor/MapServer"));
         //mMapView.addLayer(new ArcGISTiledMapServiceLayer("http://services.arcgisonline.com/ArcGIS/rest/services/ESRI_StreetMap_World_2D/MapServer"));
-        mMapView.setMapBackground(0xEFF4F2,0xEFF4F2,0,0);
+        mMapView.setMapBackground(0xEFF4F2, 0xEFF4F2, 0, 0);
 
+    }
+
+    void initFeatureLayer() {
+        //region 加载矢量底图
+        (new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Geodatabase geodatabase = new Geodatabase(extern + networkPath);
+                    for (GeodatabaseFeatureTable gdbFeatureTable : geodatabase.getGeodatabaseTables()) {
+                        if (gdbFeatureTable.hasGeometry()) {
+                            final FeatureLayer layer = new FeatureLayer(gdbFeatureTable);
+                            layer.setEnableLabels(true);
+                            layer.setSelectionColor(Color.YELLOW);
+                            mMapView.addLayer(layer);
+                        }
+                    }
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).run();
+        //endregion
+    }
+
+    void initSlidingUpPanel() {
+        slidingUpPanel = (SlidingUpPanelLayout)findViewById(R.id.sliding_layout);
+        slidingUpPanel.setEnableDragViewTouchEvents(true);
+        slidingUpPanel.setAnchorPoint(0.7F);
+    }
+
+    void initSlideMenu() {
         //region 设置SlidingMenu 不替换
         SlidingMenu menu = new SlidingMenu(this);
         menu.setMode(SlidingMenu.LEFT);
@@ -124,80 +164,21 @@ public class ActivityMain extends SherlockFragmentActivity{
         });
         menu.setMenu(menuContainer);
         //endregion
+    }
 
-        getSupportActionBar().setHomeButtonEnabled(true);
-
-        //设置定位器
-        ldm = mMapView.getLocationDisplayManager();
-        //ldm.setLocationListener(locationListener);
-
-
-        touchListener = new TouchListener(ActivityMain.this,this,mMapView);
-        mMapView.setOnTouchListener(touchListener);
-
-        //region 加载矢量底图
-        (new Runnable() {
-            @Override
+    void initSearchRouting() {
+        new Thread(new Runnable() {
             public void run() {
                 try {
-                    Geodatabase geodatabase = new Geodatabase(extern + networkPath);
-                    for (GeodatabaseFeatureTable gdbFeatureTable : geodatabase.getGeodatabaseTables()) {
-                        if (gdbFeatureTable.hasGeometry()) {
-                            final FeatureLayer layer = new FeatureLayer(gdbFeatureTable);
-                            layer.setEnableLabels(true);
-                            layer.setSelectionColor(Color.YELLOW);
-                            mMapView.addLayer(layer);
-                        }
-                    }
-                } catch (FileNotFoundException e) {
+                    //mLocator = Locator.createLocalLocator(extern + locatorPath);
+                    //mRouteTask = RouteTask.createLocalRouteTask(extern + networkPath, networkName);
+                    searchTask = new SearchTask(ActivityMain.this);
+                    routingTask = new RoutingTask(ActivityMain.this,extern + networkPath,networkName);
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
-        }).run();
-        //endregion
-
-        mMapView.addLayer(mGraphicsLayer);
-
-        slidingUpPanel = (SlidingUpPanelLayout)findViewById(R.id.sliding_layout);
-        slidingUpPanel.setEnableDragViewTouchEvents(true);
-
-        LayoutInflater layoutInflater = getLayoutInflater().from(this);
-        View view1 = new View(getBaseContext());
-        view1.setBackgroundColor(Color.RED);
-        View view2 = layoutInflater.inflate(R.layout.page1, null);
-        View view3 = layoutInflater.inflate(R.layout.page1,null);
-        final List<View> viewList = new ArrayList<View>();
-        viewList.add(view1);
-        viewList.add(view2);
-        viewList.add(view3);
-        viewPager = (ViewPager)findViewById(R.id.viewPager);
-        PagerAdapter pagerAdapter = new PagerAdapter() {
-            @Override
-            public int getCount() {
-                return viewList.size();
-            }
-
-            @Override
-            public boolean isViewFromObject(View view, Object o) {
-                return view == o;
-            }
-
-            @Override
-            public Object instantiateItem(ViewGroup viewGroup, int position) {
-                ((ViewPager)viewGroup).addView(viewList.get(position));
-                return viewList.get(position);
-            }
-
-            @Override
-            public void destroyItem(ViewGroup container, int position, Object object) {
-                ((ViewPager)container).removeView(viewList.get(position));
-            }
-
-        };
-        viewPager.setAdapter(pagerAdapter);
-
-        initializeRoutingAndGeocoding();
-
+        }).start();
     }
 
     @Override
@@ -298,10 +279,6 @@ public class ActivityMain extends SherlockFragmentActivity{
         menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                slidingUpPanel.showPane();
-                slidingUpPanel.setPanelHeight(100);
-                slidingUpPanel.setAnchorPoint((float)0.5);
-                //slidingUpPanel.expandPane();
                 return false;
             }
         });
@@ -390,58 +367,6 @@ public class ActivityMain extends SherlockFragmentActivity{
         }
     }
 
-    private void PostText(String RequestURL, File file) {
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("name", "username");
-        params.put("age", "password");
-        String encode = "utf-8";
-
-        byte[] data = getRequestData(params, encode).toString().getBytes();
-        try {
-            URL url = new URL(RequestURL);
-            HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
-            httpURLConnection.setConnectTimeout(3000);
-            httpURLConnection.setDoInput(true);
-            httpURLConnection.setDoOutput(true);
-            httpURLConnection.setRequestMethod("POST");
-            httpURLConnection.setUseCaches(false);
-            //设置请求体的类型是文本类型
-            httpURLConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            //设置请求体的长度
-            httpURLConnection.setRequestProperty("Content-Length", String.valueOf(data.length));
-            //获得输出流，向服务器写入数据
-            OutputStream outputStream = httpURLConnection.getOutputStream();
-            outputStream.write(data);
-
-            int response = httpURLConnection.getResponseCode();            //获得服务器的响应码
-            if(response == HttpURLConnection.HTTP_OK) {
-                InputStream inptStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inptStream));
-
-                StringBuilder stringBuilder = new StringBuilder();
-                String line = null;
-                while ((line = bufferedReader.readLine()) != null){
-                    stringBuilder.append(line);
-                }
-
-                TextView textView = new TextView(this);
-                textView.setText(Html.fromHtml(stringBuilder.toString()));
-                Dialog dialog = new Dialog(this);
-                dialog.setContentView(textView);
-                dialog.show();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-      /*
-      TextView textView = new TextView(this);
-      textView.setText(result);
-      Dialog dialog = new Dialog(this);
-      dialog.setContentView(textView);
-      dialog.show();
-      */
-    }
-
     public static StringBuffer getRequestData(Map<String, String> params, String encode) {
         StringBuffer stringBuffer = new StringBuffer();        //存储封装好的请求体信息
         try {
@@ -500,13 +425,13 @@ public class ActivityMain extends SherlockFragmentActivity{
         mMapView.unpause();
     }
     //endregion
+
     public void showCallout(String text, Point location) {
 
         if (mCallout == null) {
             LayoutInflater inflater = (LayoutInflater) getApplication().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             mCallout = inflater.inflate(R.layout.callout, null);
         }
-
         // Show the callout with the given text at the given location
         ((TextView) mCallout.findViewById(R.id.calloutText)).setText(text);
         ((Button)mCallout.findViewById(R.id.btnAddStop)).setOnClickListener(new OnClickListener() {
@@ -518,32 +443,6 @@ public class ActivityMain extends SherlockFragmentActivity{
         mMapView.getCallout().show(location, mCallout);
         mMapView.getCallout().setMaxWidth(700);
         mMapView.getCallout().setMaxHeight(900);
-    }
-
-    public void popToast(final String message, final boolean show) {
-        if (!show)
-            return;
-        runOnUiThread(new Runnable() {
-            public void run() {
-                Toast.makeText(ActivityMain.this, message, Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void initializeRoutingAndGeocoding() {
-        new Thread(new Runnable() {
-            public void run() {
-                try {
-                    searchTask = new SearchTask(ActivityMain.this);
-                    //mLocator = Locator.createLocalLocator(extern + locatorPath);
-                    //mRouteTask = RouteTask.createLocalRouteTask(extern + networkPath, networkName);
-                    routingTask = new RoutingTask(ActivityMain.this,extern + networkPath,networkName);
-                } catch (Exception e) {
-                    popToast("加载离线数据失败" + e.getMessage(), true);
-                    e.printStackTrace();
-                }
-            }
-        }).start();
     }
 
 }

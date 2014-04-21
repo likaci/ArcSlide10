@@ -6,6 +6,8 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -90,6 +92,7 @@ public class SearchTask {
         showFeature(features.get(0));
         viewPager.setAdapter(new myPagerAdapter());
         viewPager.setOnPageChangeListener(new myOnPageChangeListener());
+        slidingUpPanelLayout.setPanelHeight(70);
     }
 
     class myPagerAdapter extends PagerAdapter {
@@ -152,6 +155,9 @@ public class SearchTask {
             tableRow.addView(valueTxt);
             if (valueTxt.getText()!= "")
                 tableLayout.addView(tableRow);
+            WebView webView = (WebView)view.findViewById(R.id.WebView);
+            webView.setWebViewClient(new WebViewClient());
+            webView.loadUrl("http://baidu.com");
         }
 
     }

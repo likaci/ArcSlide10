@@ -30,6 +30,7 @@ import java.util.List;
 /**
  * 异步规划路径
  */
+
 public class RoutingTask {
 
     ActivityMain activityMain;
@@ -40,7 +41,6 @@ public class RoutingTask {
     final String TAG = "RouteTask";
     FragmentRoutingInfo fragmentRoutingInfo;
     GraphicsLayer graphicsLayer;
-
 
     public RoutingTask(ActivityMain activityMain,String databasePath,String networkName ){
         this.activityMain = activityMain;
@@ -64,7 +64,7 @@ public class RoutingTask {
             fragmentRoutingInfo = new FragmentRoutingInfo();
             fragmentRoutingInfo.startPointName = "起点: " + pointName;
             FragmentTransaction fragmentTransaction = activityMain.getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_RoutingInfo, fragmentRoutingInfo).commit();
+            //fragmentTransaction.replace(R.id.fragment_RoutingInfo, fragmentRoutingInfo).commit();
             Graphic graphic = new Graphic(stopGraphic.getGeometry(), new PictureMarkerSymbol(activityMain.getResources().getDrawable(R.drawable.icon_openmap_focuse_mark)),3);
             graphicsLayer.addGraphic(graphic);
         }
@@ -85,7 +85,7 @@ public class RoutingTask {
     public void FindRoute(){
 
         if (routeTask == null) {
-            activityMain.popToast("RouteTask uninitialized.", true);
+            //activityMain.popToast("RouteTask uninitialized.", true);
             return;
         }
         try {
